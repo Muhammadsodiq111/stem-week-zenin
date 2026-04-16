@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   LineChart, Line, ReferenceLine, Cell
