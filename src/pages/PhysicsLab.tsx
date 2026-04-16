@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
-import NightSkyBackground from "../components/NightSkyBackground";
+
 
 /* ─── Particle Dispersion Simulation ─── */
 const ParticleDispersion = () => {

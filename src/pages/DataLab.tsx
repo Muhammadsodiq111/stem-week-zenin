@@ -5,7 +5,7 @@ import {
 } from "recharts";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
-import NightSkyBackground from "../components/NightSkyBackground";
+import { Cell } from "recharts";
 
 /* ─── Data ─── */
 const GLOBAL_DATA = [

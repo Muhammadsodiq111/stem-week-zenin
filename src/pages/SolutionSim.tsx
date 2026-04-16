@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { motion } from "motion/react";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
-import NightSkyBackground from "../components/NightSkyBackground";
+
 
 const BASELINE = 31.4;
 const WHO_LIMIT = 5;

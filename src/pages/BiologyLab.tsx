@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
-import NightSkyBackground from "../components/NightSkyBackground";
+
 
 /* ─── Organ Data ─── */
 const ORGAN_DATA: Record<string, {
