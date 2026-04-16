@@ -164,7 +164,7 @@ const DataLab = () => {
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.04)" }} />
                 <Bar dataKey="aqi" name="aqi" radius={[6, 6, 0, 0]}>
                   {UZBEK_DATA.map((d, i) => (
-                    <rect key={i} fill={aqiColor(d.aqi)} fillOpacity={0.7} />
+                    <Cell key={i} fill={aqiColor(d.aqi)} fillOpacity={0.7} />
                   ))}
                 </Bar>
               </BarChart>
