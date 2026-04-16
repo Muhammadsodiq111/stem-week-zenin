@@ -1,11 +1,10 @@
 import { useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  LineChart, Line, ReferenceLine
+  LineChart, Line, ReferenceLine, Cell
 } from "recharts";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
-import { Cell } from "recharts";
 
 /* ─── Data ─── */
 const GLOBAL_DATA = [
