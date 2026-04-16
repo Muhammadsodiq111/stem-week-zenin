@@ -63,7 +63,7 @@ const SolutionSim = () => {
     <div>
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        <NightSkyBackground />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary to-background" />
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-32">
           <AnimatedSection>
             <span className="inline-block liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/80 mb-6">
