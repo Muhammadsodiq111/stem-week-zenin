@@ -1,11 +1,9 @@
-import { useState } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  LineChart, Line, ReferenceLine
+  LineChart, Line, ReferenceLine, Cell
 } from "recharts";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
-import NightSkyBackground from "../components/NightSkyBackground";
 
 /* ─── Data ─── */
 const GLOBAL_DATA = [
@@ -77,7 +75,7 @@ const DataLab = () => {
     <div>
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        <NightSkyBackground />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary to-background" />
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-32">
           <AnimatedSection>
             <span className="inline-block liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/80 mb-6">
@@ -164,7 +162,7 @@ const DataLab = () => {
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.04)" }} />
                 <Bar dataKey="aqi" name="aqi" radius={[6, 6, 0, 0]}>
                   {UZBEK_DATA.map((d, i) => (
-                    <rect key={i} fill={aqiColor(d.aqi)} fillOpacity={0.7} />
+                    <Cell key={i} fill={aqiColor(d.aqi)} fillOpacity={0.7} />
                   ))}
                 </Bar>
               </BarChart>
