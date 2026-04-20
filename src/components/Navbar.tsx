@@ -13,11 +13,8 @@ const navLinks = [
 ];
 
 const labLinks = [
-  { to: "/physics-lab", label: "⚛️ Physics Lab" },
-  { to: "/chemistry-lab", label: "🧪 Chemistry Lab" },
   { to: "/biology-lab", label: "🧬 Biology Lab" },
   { to: "/data-lab", label: "📊 Data Lab" },
-  { to: "/solution-sim", label: "🎛️ Solution Sim" },
 ];
 
 const Navbar = () => {
