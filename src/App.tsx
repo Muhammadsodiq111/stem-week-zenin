@@ -10,11 +10,8 @@ import Health from "./pages/Health";
 import Physics from "./pages/Physics";
 import Data from "./pages/Data";
 import Solutions from "./pages/Solutions";
-import PhysicsLab from "./pages/PhysicsLab";
-import ChemistryLab from "./pages/ChemistryLab";
 import BiologyLab from "./pages/BiologyLab";
 import DataLab from "./pages/DataLab";
-import SolutionSim from "./pages/SolutionSim";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,11 +30,8 @@ const App = () => (
             <Route path="/physics" element={<Physics />} />
             <Route path="/data" element={<Data />} />
             <Route path="/solutions" element={<Solutions />} />
-            <Route path="/physics-lab" element={<PhysicsLab />} />
-            <Route path="/chemistry-lab" element={<ChemistryLab />} />
             <Route path="/biology-lab" element={<BiologyLab />} />
             <Route path="/data-lab" element={<DataLab />} />
-            <Route path="/solution-sim" element={<SolutionSim />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
