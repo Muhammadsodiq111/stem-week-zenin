@@ -15,6 +15,7 @@ const navLinks = [
 const labLinks = [
   { to: "/biology-lab", label: "🧬 Biology Lab" },
   { to: "/data-lab", label: "📊 Data Lab" },
+  { to: "/model-lab", label: "🏭 Model Lab" },
 ];
 
 const Navbar = () => {
