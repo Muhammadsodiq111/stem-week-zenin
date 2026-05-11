@@ -614,6 +614,62 @@ const ModelLab = () => {
               </AnimatePresence>
             </div>
 
+            {/* Legend overlay */}
+            <div className="absolute top-4 right-4 liquid-glass-strong rounded-2xl px-4 py-3 max-w-[220px]">
+              <p className="text-[10px] uppercase tracking-widest text-foreground/50 font-body mb-2">
+                Legend
+              </p>
+              <div className="space-y-2">
+                {/* Toggles */}
+                <div className="flex items-start gap-2">
+                  <Filter className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Scrubber Filter</p>
+                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Traps PM2.5, PM10, SO₂</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Sun className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Solar Panels</p>
+                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Cuts CO₂, NOₓ from fossil fuels</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <TreePine className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Green Zone</p>
+                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Trees absorb CO₂, NOₓ, O₃</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Scale className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Before / After</p>
+                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Split-view comparison</p>
+                  </div>
+                </div>
+                {/* Divider */}
+                <div className="h-px bg-foreground/10 my-2" />
+                {/* Gases */}
+                <p className="text-[10px] uppercase tracking-widest text-foreground/40 font-body mb-1">Emissions</p>
+                <div className="flex flex-wrap gap-1.5">
+                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
+                    <Wind className="w-2.5 h-2.5" /> CO₂
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
+                    <Flame className="w-2.5 h-2.5" /> SO₂
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
+                    <CloudFog className="w-2.5 h-2.5" /> NOₓ
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
+                    <Leaf className="w-2.5 h-2.5" /> PM2.5
+                  </span>
+                </div>
+              </div>
+            </div>
+
             {/* Hint */}
             <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-[11px] text-foreground/50 font-body">
               <Info className="w-3.5 h-3.5" />
