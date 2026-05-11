@@ -12,6 +12,7 @@ import Data from "./pages/Data";
 import Solutions from "./pages/Solutions";
 import BiologyLab from "./pages/BiologyLab";
 import DataLab from "./pages/DataLab";
+import ModelLab from "./pages/ModelLab";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/solutions" element={<Solutions />} />
             <Route path="/biology-lab" element={<BiologyLab />} />
             <Route path="/data-lab" element={<DataLab />} />
+            <Route path="/model-lab" element={<ModelLab />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
