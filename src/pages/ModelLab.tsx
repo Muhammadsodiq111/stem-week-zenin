@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Html, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { motion, AnimatePresence } from "motion/react";
-import { Factory, Filter, Sun, TreePine, Flag, RotateCcw, Info } from "lucide-react";
+import { Factory, Filter, Sun, TreePine, Flag, RotateCcw, Info, Wind, Flame, CloudFog, Leaf, Scale } from "lucide-react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
 
