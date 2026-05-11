@@ -12,6 +12,7 @@ import Data from "./pages/Data";
 import Solutions from "./pages/Solutions";
 import BiologyLab from "./pages/BiologyLab";
 import DataLab from "./pages/DataLab";
+import ModelLab from "./pages/ModelLab";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
