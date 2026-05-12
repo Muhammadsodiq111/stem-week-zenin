@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
 import NightSkyBackground from "../components/NightSkyBackground";
+import VideoBackground from "../components/VideoBackground";
+import AnimatedHeading from "../components/AnimatedHeading";
+import FadeIn from "../components/FadeIn";
 import featureChemistry from "../assets/feature-chemistry.jpg";
 import featureBiology from "../assets/feature-biology.jpg";
 import featurePhysics from "../assets/feature-physics.jpg";
+
+const HERO_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4";
 
 const pollutants = [
   { label: "PM2.5", desc: "Microscopic particles" },
