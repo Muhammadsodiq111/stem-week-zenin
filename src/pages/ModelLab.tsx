@@ -488,6 +488,7 @@ const ModelLab = () => {
       key: "filter",
       label: "Industrial Scrubber",
       sub: "Filter on chimney",
+      tooltip: "Scrubber filter on the smokestack. Reduces SO₂ by 40% and PM2.5 by 60%.",
       icon: Filter,
       active: filter,
       onClick: () => setFilter(!filter),
@@ -496,6 +497,7 @@ const ModelLab = () => {
       key: "solar",
       label: "Solar Panels",
       sub: "Renewable energy",
+      tooltip: "Roof-mounted solar panels replace fossil fuels. Cuts CO₂ by 50% and NOₓ by 30%.",
       icon: Sun,
       active: solar,
       onClick: () => setSolar(!solar),
@@ -504,6 +506,7 @@ const ModelLab = () => {
       key: "green",
       label: "Urban Green Zone",
       sub: "Trees absorb pollutants",
+      tooltip: "Tree barrier around the site. Absorbs 15% CO₂, 20% NOₓ and 10% PM2.5.",
       icon: TreePine,
       active: green,
       onClick: () => setGreen(!green),
@@ -512,11 +515,42 @@ const ModelLab = () => {
       key: "split",
       label: "Before / After",
       sub: "Split the model",
+      tooltip: "Splits the platform into a polluted half and a clean half so you can compare.",
       icon: Flag,
       active: splitMode,
       onClick: () => setSplitMode(!splitMode),
     },
   ];
+
+  // Live gas breakdown — base 100% each, reduced by active interventions
+  const gases = [
+    {
+      key: "co2",
+      label: "CO₂",
+      icon: Wind,
+      value: Math.max(0, 100 - (solar ? 50 : 0) - (green ? 15 : 0)),
+    },
+    {
+      key: "so2",
+      label: "SO₂",
+      icon: Flame,
+      value: Math.max(0, 100 - (filter ? 40 : 0)),
+    },
+    {
+      key: "nox",
+      label: "NOₓ",
+      icon: CloudFog,
+      value: Math.max(0, 100 - (solar ? 30 : 0) - (green ? 20 : 0)),
+    },
+    {
+      key: "pm",
+      label: "PM2.5",
+      icon: Leaf,
+      value: Math.max(0, 100 - (filter ? 60 : 0) - (green ? 10 : 0)),
+    },
+  ];
+  const gasColor = (v: number) =>
+    v > 75 ? "#b53a2a" : v > 50 ? "#e85a1a" : v > 25 ? "#e8a93a" : "#3a8a4a";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-[#1a1410] to-background">
