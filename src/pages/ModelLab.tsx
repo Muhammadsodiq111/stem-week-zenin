@@ -553,7 +553,9 @@ const ModelLab = () => {
     v > 75 ? "#b53a2a" : v > 50 ? "#e85a1a" : v > 25 ? "#e8a93a" : "#3a8a4a";
 
   return (
+    <TooltipProvider delayDuration={150}>
     <div className="min-h-screen bg-gradient-to-b from-background via-[#1a1410] to-background">
+
       {/* HERO */}
       <section className="relative pt-32 pb-12 px-6">
         <div className="max-w-6xl mx-auto text-center">
