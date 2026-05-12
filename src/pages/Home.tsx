@@ -61,55 +61,62 @@ const Home = () => {
   return (
     <div>
       {/* HERO */}
-      <section className="relative h-[1000px] flex items-center justify-center overflow-hidden">
-        <NightSkyBackground />
-        <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-          <AnimatedSection>
-            <span className="inline-block liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/80 mb-8">
-              STEM Project 2026
-            </span>
-          </AnimatedSection>
+      <section className="relative min-h-screen w-full flex flex-col overflow-hidden">
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-heading italic leading-[1.1] mb-6 text-foreground">
-            <BlurText text="The Air You Breathe Is Slowly Killing You" />
-          </h1>
+        {/* Top spacer for fixed navbar */}
+        <div className="relative z-10 pt-24" />
 
-          <AnimatedSection delay={0.6}>
-            <p className="text-base sm:text-lg font-body font-light text-foreground/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Invisible gases. Microscopic particles. Real consequences. Explore how pollution affects your body, your city, and your future.
-            </p>
-          </AnimatedSection>
+        {/* Hero content pinned to bottom */}
+        <div className="relative z-10 flex-1 flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
+          <div className="lg:grid lg:grid-cols-2 lg:items-end lg:gap-10">
+            {/* Left column */}
+            <div>
+              <FadeIn delay={100} duration={800}>
+                <span className="inline-block liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/80 mb-6">
+                  STEM Project 2026
+                </span>
+              </FadeIn>
 
-          <AnimatedSection delay={0.8}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/pollution"
-                className="liquid-glass-strong rounded-full px-8 py-3 text-sm font-body font-medium text-foreground hover:bg-foreground/10 transition-all"
-              >
-                Explore Pollution
-              </Link>
-              <button className="rounded-full px-8 py-3 text-sm font-body font-medium border border-foreground/20 text-foreground/80 hover:text-foreground hover:border-foreground/40 transition-all">
-                Watch Explanation
-              </button>
+              <AnimatedHeading
+                text={"The Air You Breathe\nIs Slowly Killing You"}
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading italic font-normal leading-[1.05] mb-4 text-foreground"
+                style={{ letterSpacing: "-0.04em" }}
+              />
+
+              <FadeIn delay={800} duration={1000}>
+                <p className="text-base md:text-lg font-body font-light text-foreground/80 max-w-xl mb-5 leading-relaxed">
+                  Invisible gases. Microscopic particles. Real consequences. Explore how
+                  pollution affects your body, your city, and your future.
+                </p>
+              </FadeIn>
+
+              <FadeIn delay={1200} duration={1000}>
+                <div className="flex flex-wrap gap-4">
+                  <Link
+                    to="/pollution"
+                    className="bg-white text-black px-8 py-3 rounded-lg font-body font-medium hover:bg-gray-100 transition-colors"
+                  >
+                    Explore Pollution
+                  </Link>
+                  <button
+                    className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-body font-medium hover:bg-white hover:text-black transition-colors"
+                  >
+                    Watch Explanation
+                  </button>
+                </div>
+              </FadeIn>
             </div>
-          </AnimatedSection>
-        </div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0a1a6e] to-transparent z-10 pointer-events-none" />
-
-        {/* Bottom pollutant bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 px-6 py-8">
-          <div className="max-w-5xl mx-auto liquid-glass-strong rounded-2xl px-6 py-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {pollutants.map((p, i) => (
-                <AnimatedSection key={i} delay={1 + i * 0.1}>
-                  <div className="text-center">
-                    <div className="text-lg font-heading italic text-foreground">{p.label}</div>
-                    <div className="text-xs font-body text-foreground/50 uppercase tracking-wider">{p.desc}</div>
-                  </div>
-                </AnimatedSection>
-              ))}
+            {/* Right column tag */}
+            <div className="mt-10 lg:mt-0 flex items-end justify-start lg:justify-end">
+              <FadeIn delay={1400} duration={1000}>
+                <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
+                  <p className="text-lg md:text-xl lg:text-2xl font-body font-light text-foreground">
+                    Chemistry. Biology. Physics.
+                  </p>
+                </div>
+              </FadeIn>
             </div>
           </div>
         </div>
