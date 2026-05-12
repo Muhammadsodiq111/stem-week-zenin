@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Factory, Filter, Sun, TreePine, Flag, RotateCcw, Info, Wind, Flame, CloudFog, Leaf, Scale } from "lucide-react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 /* ═══════════════ 3D PRIMITIVES ═══════════════ */
 
