@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Factory, Filter, Sun, TreePine, Flag, RotateCcw, Info, Wind, Flame, CloudFog, Leaf, Scale } from "lucide-react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 /* ═══════════════ 3D PRIMITIVES ═══════════════ */
 
@@ -487,6 +488,7 @@ const ModelLab = () => {
       key: "filter",
       label: "Industrial Scrubber",
       sub: "Filter on chimney",
+      tooltip: "Scrubber filter on the smokestack. Reduces SO₂ by 40% and PM2.5 by 60%.",
       icon: Filter,
       active: filter,
       onClick: () => setFilter(!filter),
@@ -495,6 +497,7 @@ const ModelLab = () => {
       key: "solar",
       label: "Solar Panels",
       sub: "Renewable energy",
+      tooltip: "Roof-mounted solar panels replace fossil fuels. Cuts CO₂ by 50% and NOₓ by 30%.",
       icon: Sun,
       active: solar,
       onClick: () => setSolar(!solar),
@@ -503,6 +506,7 @@ const ModelLab = () => {
       key: "green",
       label: "Urban Green Zone",
       sub: "Trees absorb pollutants",
+      tooltip: "Tree barrier around the site. Absorbs 15% CO₂, 20% NOₓ and 10% PM2.5.",
       icon: TreePine,
       active: green,
       onClick: () => setGreen(!green),
@@ -511,14 +515,47 @@ const ModelLab = () => {
       key: "split",
       label: "Before / After",
       sub: "Split the model",
+      tooltip: "Splits the platform into a polluted half and a clean half so you can compare.",
       icon: Flag,
       active: splitMode,
       onClick: () => setSplitMode(!splitMode),
     },
   ];
 
+  // Live gas breakdown — base 100% each, reduced by active interventions
+  const gases = [
+    {
+      key: "co2",
+      label: "CO₂",
+      icon: Wind,
+      value: Math.max(0, 100 - (solar ? 50 : 0) - (green ? 15 : 0)),
+    },
+    {
+      key: "so2",
+      label: "SO₂",
+      icon: Flame,
+      value: Math.max(0, 100 - (filter ? 40 : 0)),
+    },
+    {
+      key: "nox",
+      label: "NOₓ",
+      icon: CloudFog,
+      value: Math.max(0, 100 - (solar ? 30 : 0) - (green ? 20 : 0)),
+    },
+    {
+      key: "pm",
+      label: "PM2.5",
+      icon: Leaf,
+      value: Math.max(0, 100 - (filter ? 60 : 0) - (green ? 10 : 0)),
+    },
+  ];
+  const gasColor = (v: number) =>
+    v > 75 ? "#b53a2a" : v > 50 ? "#e85a1a" : v > 25 ? "#e8a93a" : "#3a8a4a";
+
   return (
+    <TooltipProvider delayDuration={150}>
     <div className="min-h-screen bg-gradient-to-b from-background via-[#1a1410] to-background">
+
       {/* HERO */}
       <section className="relative pt-32 pb-12 px-6">
         <div className="max-w-6xl mx-auto text-center">
@@ -614,59 +651,114 @@ const ModelLab = () => {
               </AnimatePresence>
             </div>
 
-            {/* Legend overlay */}
-            <div className="absolute top-4 right-4 liquid-glass-strong rounded-2xl px-4 py-3 max-w-[220px]">
-              <p className="text-[10px] uppercase tracking-widest text-foreground/50 font-body mb-2">
-                Legend
-              </p>
-              <div className="space-y-2">
-                {/* Toggles */}
-                <div className="flex items-start gap-2">
-                  <Filter className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Scrubber Filter</p>
-                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Traps PM2.5, PM10, SO₂</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Sun className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Solar Panels</p>
-                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Cuts CO₂, NOₓ from fossil fuels</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <TreePine className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Green Zone</p>
-                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Trees absorb CO₂, NOₓ, O₃</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Scale className="w-3 h-3 text-foreground/70 mt-0.5 shrink-0" />
-                  <div>
-                    <p className="text-[11px] font-body font-medium text-foreground leading-tight">Before / After</p>
-                    <p className="text-[10px] font-body text-foreground/50 leading-tight">Split-view comparison</p>
-                  </div>
-                </div>
-                {/* Divider */}
-                <div className="h-px bg-foreground/10 my-2" />
-                {/* Gases */}
-                <p className="text-[10px] uppercase tracking-widest text-foreground/40 font-body mb-1">Emissions</p>
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
-                    <Wind className="w-2.5 h-2.5" /> CO₂
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
-                    <Flame className="w-2.5 h-2.5" /> SO₂
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
-                    <CloudFog className="w-2.5 h-2.5" /> NOₓ
-                  </span>
-                  <span className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-body bg-foreground/10 text-foreground/70">
-                    <Leaf className="w-2.5 h-2.5" /> PM2.5
-                  </span>
-                </div>
+            {/* Legend overlay — live status, dynamic gas breakdown, tooltips, keyboard accessible */}
+            <div
+              className="absolute top-4 right-4 liquid-glass-strong rounded-2xl px-4 py-3 w-[250px] max-w-[80vw]"
+              role="region"
+              aria-label="Model controls legend with live status and emissions breakdown"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[10px] uppercase tracking-widest text-foreground/50 font-body">
+                  Legend & Status
+                </p>
+                <span className="text-[9px] font-body text-foreground/40">
+                  {[filter, solar, green, splitMode].filter(Boolean).length}/4 on
+                </span>
+              </div>
+              <ul className="space-y-1.5" role="list">
+                {toggles.map((t) => (
+                  <li key={t.key}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          onClick={t.onClick}
+                          role="switch"
+                          aria-checked={t.active}
+                          aria-label={`${t.label}: ${t.active ? "on" : "off"}. ${t.tooltip}`}
+                          className="w-full flex items-center gap-2 rounded-md px-1.5 py-1 text-left hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 transition-colors"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${
+                              t.active
+                                ? "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]"
+                                : "bg-foreground/25"
+                            }`}
+                          />
+                          <t.icon className="w-3 h-3 text-foreground/70 shrink-0" aria-hidden="true" />
+                          <span className="text-[11px] font-body font-medium text-foreground leading-tight flex-1 truncate">
+                            {t.label}
+                          </span>
+                          <span
+                            className={`text-[9px] font-body uppercase tracking-wider ${
+                              t.active ? "text-emerald-400" : "text-foreground/40"
+                            }`}
+                            aria-hidden="true"
+                          >
+                            {t.active ? "On" : "Off"}
+                          </span>
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent side="left" className="max-w-[220px] text-xs">
+                        {t.tooltip}
+                      </TooltipContent>
+                    </Tooltip>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="h-px bg-foreground/10 my-2.5" />
+
+              {/* Live gas breakdown */}
+              <div
+                className="space-y-1.5"
+                role="group"
+                aria-label="Live emissions breakdown"
+                aria-live="polite"
+              >
+                <p className="text-[10px] uppercase tracking-widest text-foreground/40 font-body">
+                  Emissions (live)
+                </p>
+                {gases.map((g) => (
+                  <Tooltip key={g.key}>
+                    <TooltipTrigger asChild>
+                      <div
+                        tabIndex={0}
+                        className="flex items-center gap-2 rounded-md px-1 py-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                        aria-label={`${g.label} at ${g.value} percent of baseline`}
+                      >
+                        <g.icon className="w-2.5 h-2.5 text-foreground/60 shrink-0" aria-hidden="true" />
+                        <span className="text-[10px] font-body text-foreground/70 w-9 shrink-0">
+                          {g.label}
+                        </span>
+                        <div
+                          className="flex-1 h-1.5 rounded-full bg-foreground/10 overflow-hidden"
+                          role="progressbar"
+                          aria-valuenow={g.value}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                        >
+                          <motion.div
+                            className="h-full rounded-full"
+                            animate={{ width: `${g.value}%`, backgroundColor: gasColor(g.value) }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
+                          />
+                        </div>
+                        <span
+                          className="text-[10px] font-body tabular-nums w-8 text-right"
+                          style={{ color: gasColor(g.value) }}
+                        >
+                          {g.value}%
+                        </span>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="left" className="max-w-[220px] text-xs">
+                      {g.label} is at {g.value}% of baseline emissions.
+                      {g.value < 100 ? " Reduced by active interventions." : " No interventions affecting this gas yet."}
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
               </div>
             </div>
 
@@ -692,51 +784,72 @@ const ModelLab = () => {
             </div>
 
             {toggles.map((t) => (
-              <motion.button
-                key={t.key}
-                onClick={t.onClick}
-                whileTap={{ scale: 0.97 }}
-                className={`w-full text-left rounded-2xl p-4 transition-all duration-300 ${
-                  t.active
-                    ? "liquid-glass-strong bg-foreground/10"
-                    : "liquid-glass hover:bg-foreground/5"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`rounded-xl p-2.5 transition-colors ${
-                      t.active ? "bg-foreground/20" : "bg-foreground/5"
+              <Tooltip key={t.key}>
+                <TooltipTrigger asChild>
+                  <motion.button
+                    onClick={t.onClick}
+                    whileTap={{ scale: 0.97 }}
+                    role="switch"
+                    aria-checked={t.active}
+                    aria-label={`${t.label}, ${t.sub}. Currently ${t.active ? "on" : "off"}. ${t.tooltip}`}
+                    className={`w-full text-left rounded-2xl p-4 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 ${
+                      t.active
+                        ? "liquid-glass-strong bg-foreground/10"
+                        : "liquid-glass hover:bg-foreground/5"
                     }`}
                   >
-                    <t.icon
-                      className={`w-4 h-4 ${
-                        t.active ? "text-foreground" : "text-foreground/60"
-                      }`}
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-body font-medium text-foreground">
-                      {t.label}
-                    </p>
-                    <p className="text-[11px] font-body font-light text-foreground/50">
-                      {t.sub}
-                    </p>
-                  </div>
-                  <div
-                    className={`w-9 h-5 rounded-full p-0.5 transition-colors ${
-                      t.active ? "bg-foreground/80" : "bg-foreground/15"
-                    }`}
-                  >
-                    <motion.div
-                      animate={{ x: t.active ? 16 : 0 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                      className={`w-4 h-4 rounded-full ${
-                        t.active ? "bg-background" : "bg-foreground/60"
-                      }`}
-                    />
-                  </div>
-                </div>
-              </motion.button>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`rounded-xl p-2.5 transition-colors ${
+                          t.active ? "bg-foreground/20" : "bg-foreground/5"
+                        }`}
+                      >
+                        <t.icon
+                          className={`w-4 h-4 ${
+                            t.active ? "text-foreground" : "text-foreground/60"
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-body font-medium text-foreground">
+                            {t.label}
+                          </p>
+                          <span
+                            aria-hidden="true"
+                            className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                              t.active
+                                ? "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]"
+                                : "bg-foreground/25"
+                            }`}
+                          />
+                        </div>
+                        <p className="text-[11px] font-body font-light text-foreground/50">
+                          {t.sub}
+                        </p>
+                      </div>
+                      <div
+                        className={`w-9 h-5 rounded-full p-0.5 transition-colors ${
+                          t.active ? "bg-foreground/80" : "bg-foreground/15"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <motion.div
+                          animate={{ x: t.active ? 16 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                          className={`w-4 h-4 rounded-full ${
+                            t.active ? "bg-background" : "bg-foreground/60"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </motion.button>
+                </TooltipTrigger>
+                <TooltipContent side="left" className="max-w-[240px] text-xs">
+                  {t.tooltip}
+                </TooltipContent>
+              </Tooltip>
             ))}
 
             <button
@@ -811,6 +924,7 @@ const ModelLab = () => {
         </div>
       </section>
     </div>
+    </TooltipProvider>
   );
 };
 
