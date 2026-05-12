@@ -784,51 +784,72 @@ const ModelLab = () => {
             </div>
 
             {toggles.map((t) => (
-              <motion.button
-                key={t.key}
-                onClick={t.onClick}
-                whileTap={{ scale: 0.97 }}
-                className={`w-full text-left rounded-2xl p-4 transition-all duration-300 ${
-                  t.active
-                    ? "liquid-glass-strong bg-foreground/10"
-                    : "liquid-glass hover:bg-foreground/5"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`rounded-xl p-2.5 transition-colors ${
-                      t.active ? "bg-foreground/20" : "bg-foreground/5"
+              <Tooltip key={t.key}>
+                <TooltipTrigger asChild>
+                  <motion.button
+                    onClick={t.onClick}
+                    whileTap={{ scale: 0.97 }}
+                    role="switch"
+                    aria-checked={t.active}
+                    aria-label={`${t.label}, ${t.sub}. Currently ${t.active ? "on" : "off"}. ${t.tooltip}`}
+                    className={`w-full text-left rounded-2xl p-4 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 ${
+                      t.active
+                        ? "liquid-glass-strong bg-foreground/10"
+                        : "liquid-glass hover:bg-foreground/5"
                     }`}
                   >
-                    <t.icon
-                      className={`w-4 h-4 ${
-                        t.active ? "text-foreground" : "text-foreground/60"
-                      }`}
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-body font-medium text-foreground">
-                      {t.label}
-                    </p>
-                    <p className="text-[11px] font-body font-light text-foreground/50">
-                      {t.sub}
-                    </p>
-                  </div>
-                  <div
-                    className={`w-9 h-5 rounded-full p-0.5 transition-colors ${
-                      t.active ? "bg-foreground/80" : "bg-foreground/15"
-                    }`}
-                  >
-                    <motion.div
-                      animate={{ x: t.active ? 16 : 0 }}
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                      className={`w-4 h-4 rounded-full ${
-                        t.active ? "bg-background" : "bg-foreground/60"
-                      }`}
-                    />
-                  </div>
-                </div>
-              </motion.button>
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`rounded-xl p-2.5 transition-colors ${
+                          t.active ? "bg-foreground/20" : "bg-foreground/5"
+                        }`}
+                      >
+                        <t.icon
+                          className={`w-4 h-4 ${
+                            t.active ? "text-foreground" : "text-foreground/60"
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-body font-medium text-foreground">
+                            {t.label}
+                          </p>
+                          <span
+                            aria-hidden="true"
+                            className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                              t.active
+                                ? "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]"
+                                : "bg-foreground/25"
+                            }`}
+                          />
+                        </div>
+                        <p className="text-[11px] font-body font-light text-foreground/50">
+                          {t.sub}
+                        </p>
+                      </div>
+                      <div
+                        className={`w-9 h-5 rounded-full p-0.5 transition-colors ${
+                          t.active ? "bg-foreground/80" : "bg-foreground/15"
+                        }`}
+                        aria-hidden="true"
+                      >
+                        <motion.div
+                          animate={{ x: t.active ? 16 : 0 }}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                          className={`w-4 h-4 rounded-full ${
+                            t.active ? "bg-background" : "bg-foreground/60"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  </motion.button>
+                </TooltipTrigger>
+                <TooltipContent side="left" className="max-w-[240px] text-xs">
+                  {t.tooltip}
+                </TooltipContent>
+              </Tooltip>
             ))}
 
             <button
