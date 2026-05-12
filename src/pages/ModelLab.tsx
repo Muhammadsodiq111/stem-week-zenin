@@ -848,6 +848,7 @@ const ModelLab = () => {
         </div>
       </section>
     </div>
+    </TooltipProvider>
   );
 };
 
