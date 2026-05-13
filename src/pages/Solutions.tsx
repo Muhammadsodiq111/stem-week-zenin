@@ -215,9 +215,7 @@ const Solutions = () => {
 
       {/* ── SECTION 3: COUNTRIES ── */}
       <section className="relative py-32 px-6 overflow-hidden">
-        <NightSkyBackground />
-        <div className="section-fade-top" />
-        <div className="section-fade-bottom" />
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <AnimatedSection>
             <h2 className="text-3xl sm:text-5xl font-heading italic text-center mb-4 text-foreground">
