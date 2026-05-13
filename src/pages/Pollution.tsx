@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import MoleculeDiagram from "../components/MoleculeDiagram";
 
 const culprits = ["CO", "CO₂", "NO₂", "SO₂", "O₃", "PM2.5"];
 
