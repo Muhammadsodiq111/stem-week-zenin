@@ -229,7 +229,7 @@ const Solutions = () => {
           <div className="space-y-8">
             {countries.map((c, i) => (
               <AnimatedSection key={i} delay={i * 0.08}>
-                <div className="liquid-glass-strong rounded-2xl p-8 md:p-10">
+                <div className="liquid-glass-dark rounded-2xl p-8 md:p-10">
                   <div className="flex items-center gap-4 mb-6">
                     <span className="text-4xl">{c.flag}</span>
                     <div>
