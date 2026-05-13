@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import ParticleSettlingSim from "../components/ParticleSettlingSim";
 
 const particles = [
   { label: "Dust / Pollen", size: "50–100 μm", fate: "Falls quickly due to gravity, caught by nose" },
