@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
-import NightSkyBackground from "../components/NightSkyBackground";
+import VideoBackground from "../components/VideoBackground";
 import { Lightbulb, Globe, GraduationCap, Heart, Factory, Zap, Car, Monitor, TreePine, Footprints, Plug, Megaphone, School, Smartphone } from "lucide-react";
+
+const HERO_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4";
 
 /* ─── DATA ─── */
 
@@ -148,7 +151,7 @@ const Solutions = () => {
     <div>
       {/* ── HERO / HOOK ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <NightSkyBackground />
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-40">
           <AnimatedSection>
             <span className="inline-block liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/80 mb-8">
@@ -212,9 +215,7 @@ const Solutions = () => {
 
       {/* ── SECTION 3: COUNTRIES ── */}
       <section className="relative py-32 px-6 overflow-hidden">
-        <NightSkyBackground />
-        <div className="section-fade-top" />
-        <div className="section-fade-bottom" />
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
         <div className="relative z-10 max-w-5xl mx-auto">
           <AnimatedSection>
             <h2 className="text-3xl sm:text-5xl font-heading italic text-center mb-4 text-foreground">
