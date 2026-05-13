@@ -151,7 +151,7 @@ const Solutions = () => {
     <div>
       {/* ── HERO / HOOK ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <NightSkyBackground />
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6 py-40">
           <AnimatedSection>
             <span className="inline-block liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/80 mb-8">
