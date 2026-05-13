@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
-import NightSkyBackground from "../components/NightSkyBackground";
 import VideoBackground from "../components/VideoBackground";
 import AnimatedHeading from "../components/AnimatedHeading";
 import FadeIn from "../components/FadeIn";
