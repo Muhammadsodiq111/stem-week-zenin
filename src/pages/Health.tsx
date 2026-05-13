@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import LungJourney from "../components/LungJourney";
 
 const defenses = [
   { icon: "👃", name: "Nose Hairs", desc: "Trap large particles before they enter your airways" },
@@ -91,6 +92,15 @@ const Health = () => {
               <p className="text-foreground/80 font-body font-light text-base leading-relaxed">
                 <span className="text-red-400 font-medium">The problem:</span> PM2.5 particles are just 2.5 micrometers across — 30× smaller than a human hair. They slip past every defense and embed deep in your lung tissue.
               </p>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.5}>
+            <div className="mt-10">
+              <p className="text-foreground/40 font-body text-xs uppercase tracking-widest mb-4 text-center">
+                Watch the journey: particles → trachea → bronchi → alveoli
+              </p>
+              <LungJourney />
             </div>
           </AnimatedSection>
         </section>

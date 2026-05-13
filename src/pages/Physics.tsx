@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import ParticleSettlingSim from "../components/ParticleSettlingSim";
 
 const particles = [
   { label: "Dust / Pollen", size: "50–100 μm", fate: "Falls quickly due to gravity, caught by nose" },
@@ -250,8 +251,11 @@ const Physics = () => {
             One Simple Principle
           </h2>
           <p className="text-foreground/50 font-body font-light text-lg max-w-2xl leading-relaxed mb-10">
-            Stokes' Law describes how fast a particle falls through air:
+            Stokes' Law describes how fast a particle falls through air. Watch it happen — three particle sizes, three very different fates:
           </p>
+          <div className="mb-8">
+            <ParticleSettlingSim />
+          </div>
           <div className="liquid-glass rounded-2xl p-10 md:p-14">
             <div className="grid md:grid-cols-3 gap-8 text-center">
               {[

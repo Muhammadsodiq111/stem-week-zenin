@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
+import MoleculeDiagram from "../components/MoleculeDiagram";
 
 const culprits = ["CO", "CO₂", "NO₂", "SO₂", "O₃", "PM2.5"];
 
@@ -142,13 +143,20 @@ const Pollution = () => {
             </div>
           </AnimatedSection>
 
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
             {culprits.map((c, i) => (
               <AnimatedSection key={c} delay={0.1 + i * 0.07}>
                 <span className="font-heading italic text-3xl sm:text-4xl text-foreground/40">{c}</span>
               </AnimatedSection>
             ))}
           </div>
+
+          <AnimatedSection delay={0.2}>
+            <p className="text-foreground/40 font-body text-xs uppercase tracking-widest mb-4 text-center">
+              Live Molecular Structures
+            </p>
+            <MoleculeDiagram />
+          </AnimatedSection>
         </section>
 
         {/* ─── SECTION 2: VILLAIN CARDS ─── */}
