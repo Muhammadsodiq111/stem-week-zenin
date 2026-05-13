@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
-import NightSkyBackground from "../components/NightSkyBackground";
+import VideoBackground from "../components/VideoBackground";
 import { Lightbulb, Globe, GraduationCap, Heart, Factory, Zap, Car, Monitor, TreePine, Footprints, Plug, Megaphone, School, Smartphone } from "lucide-react";
+
+const HERO_VIDEO =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4";
 
 /* ─── DATA ─── */
 
