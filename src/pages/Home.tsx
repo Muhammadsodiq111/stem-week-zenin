@@ -118,9 +118,7 @@ const Home = () => {
 
       {/* WHAT'S HAPPENING */}
       <section className="relative py-40 overflow-hidden">
-        <NightSkyBackground />
-        <div className="section-fade-top" />
-        <div className="section-fade-bottom" />
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
         <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading italic mb-6 text-foreground">
             <BlurText text="You can't see it. But it's everywhere." />
@@ -194,9 +192,7 @@ const Home = () => {
 
       {/* STATS */}
       <section className="relative py-40 overflow-hidden">
-        <NightSkyBackground />
-        <div className="section-fade-top" />
-        <div className="section-fade-bottom" />
+        <VideoBackground src={HERO_VIDEO} overlay={false} />
         <div className="relative z-10 max-w-5xl mx-auto px-6">
           <div className="liquid-glass-strong rounded-3xl p-10 md:p-16">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
