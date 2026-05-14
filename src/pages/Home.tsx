@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { HeartPulse, EyeOff, Globe2, Sparkles } from "lucide-react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
 import VideoBackground from "../components/VideoBackground";
