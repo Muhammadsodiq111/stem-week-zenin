@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence } from "motion/react";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
 
@@ -19,7 +18,6 @@ const Layout = () => {
           </main>
         </PageTransition>
       </AnimatePresence>
-      <Footer />
     </div>
   );
 };
