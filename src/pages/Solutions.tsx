@@ -131,21 +131,6 @@ const individualActions = [
 /* ─── COMPONENT ─── */
 
 const Solutions = () => {
-  const [pledgeCount, setPledgeCount] = useState(() => {
-    const stored = localStorage.getItem("pledge-count");
-    return stored ? parseInt(stored, 10) : 4827;
-  });
-  const [hasPledged, setHasPledged] = useState(() => !!localStorage.getItem("has-pledged"));
-
-  const handlePledge = () => {
-    if (hasPledged) return;
-    const next = pledgeCount + 1;
-    setPledgeCount(next);
-    setHasPledged(true);
-    localStorage.setItem("pledge-count", String(next));
-    localStorage.setItem("has-pledged", "true");
-  };
-
   return (
     <div>
       {/* ── HERO / HOOK ── */}
