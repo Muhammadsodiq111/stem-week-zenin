@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
-import LungJourney from "../components/LungJourney";
+
 
 const defenses = [
   { icon: "👃", name: "Nose Hairs", desc: "Trap large particles before they enter your airways" },
