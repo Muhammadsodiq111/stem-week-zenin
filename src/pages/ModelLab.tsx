@@ -863,64 +863,62 @@ const ModelLab = () => {
         </div>
       </section>
 
-      {/* LEGEND / EXPLANATION */}
+      {/* LEGEND / EXPLANATION — visual */}
       <section className="px-6 pb-32">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <AnimatedSection>
-            <h2 className="text-2xl sm:text-4xl font-heading italic text-center mb-4 text-foreground">
+            <p className="text-center text-xs font-body uppercase tracking-[0.3em] text-foreground/40 mb-3">The story</p>
+            <h2 className="text-3xl sm:text-5xl font-heading italic text-center mb-4 text-foreground">
               How the model tells the story
             </h2>
-            <p className="text-foreground/50 font-body font-light text-center max-w-xl mx-auto mb-12">
+            <p className="text-foreground/50 font-body font-light text-center max-w-xl mx-auto mb-16">
               Five interventions, each grounded in real-world policy. Layer them to see how
               quickly the air can change.
             </p>
           </AnimatedSection>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {[
-              {
-                icon: Filter,
-                title: "1. Filter on the chimney",
-                body: "A scrubber catches particulates before they reach the air — exactly what China and Japan mandate for factories.",
-              },
-              {
-                icon: Flag,
-                title: "2. Before / After split",
-                body: "Half the base stays polluted; half goes green. The contrast tells the whole story at a glance.",
-              },
-              {
-                icon: Sun,
-                title: "3. Solar panels on the roof",
-                body: "Switching to renewable energy mirrors China's Five-Year Plan — fewer fossil fuels, less smog.",
-              },
-              {
-                icon: TreePine,
-                title: "4. Urban green barriers",
-                body: "Trees absorb pollutants. Even a small green ring around an industrial site measurably improves local air.",
-              },
-              {
-                icon: Flag,
-                title: "5. Info flag tags",
-                body: "Tiny flags label every intervention — the details that turn a model into an explanation.",
-              },
-            ].map((item, i) => (
-              <AnimatedSection key={i} delay={i * 0.05}>
-                <div className="liquid-glass rounded-2xl p-6 h-full flex gap-4">
-                  <div className="liquid-glass-strong rounded-xl p-2.5 shrink-0 h-fit">
-                    <item.icon className="w-5 h-5 text-foreground/70" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-body font-medium text-foreground mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm font-body font-light text-foreground/60 leading-relaxed">
-                      {item.body}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
+          {(() => {
+            const items = [
+              { Icon: Filter,   title: "Filter on the chimney", body: "A scrubber catches particulates before they reach the air — exactly what China and Japan mandate for factories.", color: "sky" },
+              { Icon: Flag,     title: "Before / After split",  body: "Half the base stays polluted; half goes green. The contrast tells the whole story at a glance.",                color: "amber" },
+              { Icon: Sun,      title: "Solar panels on roof",  body: "Switching to renewable energy mirrors China's Five-Year Plan — fewer fossil fuels, less smog.",                  color: "yellow" },
+              { Icon: TreePine, title: "Urban green barriers",  body: "Trees absorb pollutants. Even a small green ring around an industrial site measurably improves local air.",     color: "emerald" },
+              { Icon: Flag,     title: "Info flag tags",        body: "Tiny flags label every intervention — the details that turn a model into an explanation.",                       color: "fuchsia" },
+            ];
+            const palette: Record<string, { glow: string; ring: string; bg: string; text: string; bar: string }> = {
+              sky:     { glow: "from-sky-500/40",     ring: "ring-sky-400/40",     bg: "bg-sky-500/15",     text: "text-sky-300",     bar: "from-sky-400 to-sky-600" },
+              amber:   { glow: "from-amber-500/40",   ring: "ring-amber-400/40",   bg: "bg-amber-500/15",   text: "text-amber-300",   bar: "from-amber-400 to-orange-600" },
+              yellow:  { glow: "from-yellow-400/40",  ring: "ring-yellow-300/40",  bg: "bg-yellow-400/15",  text: "text-yellow-200",  bar: "from-yellow-300 to-amber-500" },
+              emerald: { glow: "from-emerald-500/40", ring: "ring-emerald-400/40", bg: "bg-emerald-500/15", text: "text-emerald-300", bar: "from-emerald-400 to-emerald-600" },
+              fuchsia: { glow: "from-fuchsia-500/40", ring: "ring-fuchsia-400/40", bg: "bg-fuchsia-500/15", text: "text-fuchsia-300", bar: "from-fuchsia-400 to-pink-600" },
+            };
+            return (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {items.map((item, i) => {
+                  const c = palette[item.color];
+                  const Icon = item.Icon;
+                  return (
+                    <AnimatedSection key={i} delay={i * 0.07}>
+                      <div className={`group relative h-full rounded-3xl p-7 liquid-glass ring-1 ${c.ring} overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl`}>
+                        <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
+                        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${c.bar}`} />
+                        <div className="relative">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${c.bg} ring-1 ${c.ring}`}>
+                              <Icon className={`w-6 h-6 ${c.text}`} />
+                            </div>
+                            <span className="font-heading italic text-3xl text-foreground/15">0{i + 1}</span>
+                          </div>
+                          <h3 className="text-lg font-body font-semibold text-foreground mb-2">{item.title}</h3>
+                          <p className="text-sm font-body font-light text-foreground/60 leading-relaxed">{item.body}</p>
+                        </div>
+                      </div>
+                    </AnimatedSection>
+                  );
+                })}
+              </div>
+            );
+          })()}
         </div>
       </section>
     </div>
