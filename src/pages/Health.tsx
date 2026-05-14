@@ -95,15 +95,6 @@ const Health = () => {
             </div>
           </AnimatedSection>
 
-          <AnimatedSection delay={0.5}>
-            <div className="mt-10">
-              <p className="text-foreground/40 font-body text-xs uppercase tracking-widest mb-4 text-center">
-                Watch the journey: particles → trachea → bronchi → alveoli
-              </p>
-              <LungJourney />
-            </div>
-          </AnimatedSection>
-        </section>
 
         {/* ──────────────────────────── SECTION 2 ──────────────────────────── */}
         <section className="mt-40">
