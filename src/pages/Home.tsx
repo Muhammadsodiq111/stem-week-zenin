@@ -37,10 +37,42 @@ const features = [
 ];
 
 const gridCards = [
-  { title: "Health Risk", desc: "Air pollution is the leading environmental cause of disease and premature death worldwide." },
-  { title: "Invisible Threat", desc: "You can't see, smell, or taste the most dangerous pollutants—but they're always present." },
-  { title: "Global Impact", desc: "No country is immune. Pollution crosses borders, oceans, and continents." },
-  { title: "Preventable Problem", desc: "With the right data and action, we can reduce exposure and save millions of lives." },
+  {
+    title: "Health Risk",
+    desc: "Air pollution is the leading environmental cause of disease and premature death worldwide.",
+    icon: HeartPulse,
+    gradient: "from-rose-500/30 via-rose-500/10 to-transparent",
+    ring: "ring-rose-400/30",
+    iconColor: "text-rose-300",
+    iconBg: "bg-rose-500/15",
+  },
+  {
+    title: "Invisible Threat",
+    desc: "You can't see, smell, or taste the most dangerous pollutants—but they're always present.",
+    icon: EyeOff,
+    gradient: "from-amber-500/30 via-amber-500/10 to-transparent",
+    ring: "ring-amber-400/30",
+    iconColor: "text-amber-300",
+    iconBg: "bg-amber-500/15",
+  },
+  {
+    title: "Global Impact",
+    desc: "No country is immune. Pollution crosses borders, oceans, and continents.",
+    icon: Globe2,
+    gradient: "from-sky-500/30 via-sky-500/10 to-transparent",
+    ring: "ring-sky-400/30",
+    iconColor: "text-sky-300",
+    iconBg: "bg-sky-500/15",
+  },
+  {
+    title: "Preventable Problem",
+    desc: "With the right data and action, we can reduce exposure and save millions of lives.",
+    icon: Sparkles,
+    gradient: "from-emerald-500/30 via-emerald-500/10 to-transparent",
+    ring: "ring-emerald-400/30",
+    iconColor: "text-emerald-300",
+    iconBg: "bg-emerald-500/15",
+  },
 ];
 
 const stats = [
