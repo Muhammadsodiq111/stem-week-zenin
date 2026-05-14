@@ -256,10 +256,11 @@ const Solutions = () => {
         </div>
       </section>
 
-      {/* ── SECTION 4: INDIVIDUAL ACTIONS ── */}
+      {/* ── SECTION 4: INDIVIDUAL ACTIONS — colorful ── */}
       <section className="py-32 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <AnimatedSection>
+            <p className="text-center text-xs font-body uppercase tracking-[0.3em] text-foreground/40 mb-3">Your move</p>
             <h2 className="text-3xl sm:text-5xl font-heading italic text-center mb-4 text-foreground">
               What You Can Do
             </h2>
@@ -268,58 +269,35 @@ const Solutions = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {individualActions.map((a, i) => (
-              <AnimatedSection key={i} delay={i * 0.08}>
-                <div className="liquid-glass rounded-2xl p-6 h-full flex items-start gap-4">
-                  <div className="liquid-glass-strong rounded-xl p-2.5 shrink-0">
-                    <a.icon className="w-5 h-5 text-foreground/70" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {individualActions.map((a, i) => {
+              const palettes = [
+                { grad: "from-emerald-500/30 via-emerald-500/10 to-transparent", ring: "ring-emerald-400/30", iconBg: "bg-emerald-500/20", iconColor: "text-emerald-300" },
+                { grad: "from-lime-500/30 via-lime-500/10 to-transparent", ring: "ring-lime-400/30", iconBg: "bg-lime-500/20", iconColor: "text-lime-300" },
+                { grad: "from-amber-500/30 via-amber-500/10 to-transparent", ring: "ring-amber-400/30", iconBg: "bg-amber-500/20", iconColor: "text-amber-300" },
+                { grad: "from-sky-500/30 via-sky-500/10 to-transparent", ring: "ring-sky-400/30", iconBg: "bg-sky-500/20", iconColor: "text-sky-300" },
+                { grad: "from-fuchsia-500/30 via-fuchsia-500/10 to-transparent", ring: "ring-fuchsia-400/30", iconBg: "bg-fuchsia-500/20", iconColor: "text-fuchsia-300" },
+                { grad: "from-rose-500/30 via-rose-500/10 to-transparent", ring: "ring-rose-400/30", iconBg: "bg-rose-500/20", iconColor: "text-rose-300" },
+              ];
+              const p = palettes[i % palettes.length];
+              return (
+                <AnimatedSection key={i} delay={i * 0.06}>
+                  <div className={`group relative overflow-hidden rounded-3xl p-6 h-full liquid-glass ring-1 ${p.ring} transition-all hover:-translate-y-1 hover:shadow-2xl`}>
+                    <div className={`absolute -top-20 -right-20 w-56 h-56 rounded-full bg-gradient-to-br ${p.grad} blur-3xl opacity-80 group-hover:opacity-100 transition-opacity`} />
+                    <div className="relative flex flex-col gap-4">
+                      <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${p.iconBg}`}>
+                        <a.icon className={`w-6 h-6 ${p.iconColor}`} />
+                      </div>
+                      <p className="text-foreground/80 font-body font-light leading-relaxed text-sm">{a.text}</p>
+                    </div>
                   </div>
-                  <p className="text-foreground/70 font-body font-light leading-relaxed text-sm">{a.text}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              );
+            })}
           </div>
-        </div>
-      </section>
-
-      {/* ── SECTION 5: CLOSING + PLEDGE ── */}
-      <section className="py-40 px-6">
-        <div className="text-center max-w-2xl mx-auto">
-          <AnimatedSection>
-            <h2 className="text-4xl sm:text-6xl font-heading italic mb-8 text-foreground leading-tight">
-              The air belongs to every living thing on Earth.
-            </h2>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.2}>
-            <p className="text-foreground/60 font-body font-light text-lg mb-4 leading-relaxed">
-              The fact that 7 million people die from it every year isn't inevitable — it's a choice. And choices can be changed.
-            </p>
-            <p className="text-foreground/60 font-body font-light text-lg mb-12 leading-relaxed">
-              You just spent time learning about one of the most important issues of our generation. That already makes you part of the solution.
-            </p>
-          </AnimatedSection>
 
           <AnimatedSection delay={0.4}>
-            <button
-              onClick={handlePledge}
-              disabled={hasPledged}
-              className={`liquid-glass-strong rounded-full px-10 py-4 text-base font-body font-medium transition-all duration-300 ${
-                hasPledged
-                  ? "text-foreground/50 cursor-default"
-                  : "text-foreground hover:bg-foreground/10 hover:scale-105"
-              }`}
-            >
-              {hasPledged ? "✓ You've pledged" : "I'll do my part"}
-            </button>
-            <p className="text-foreground/30 font-body text-sm mt-4">
-              {pledgeCount.toLocaleString()} people have pledged
-            </p>
-          </AnimatedSection>
-
-          <AnimatedSection delay={0.6}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-20">
               <Link
                 to="/data"
                 className="liquid-glass rounded-full px-8 py-3 text-sm font-body font-medium text-foreground hover:bg-foreground/10 transition-all"
