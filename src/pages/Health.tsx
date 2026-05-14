@@ -94,7 +94,7 @@ const Health = () => {
               </p>
             </div>
           </AnimatedSection>
-
+        </section>
 
         {/* ──────────────────────────── SECTION 2 ──────────────────────────── */}
         <section className="mt-40">
