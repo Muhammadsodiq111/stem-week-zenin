@@ -148,27 +148,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* WHAT'S HAPPENING */}
-      <section className="relative py-40 overflow-hidden">
-        <VideoBackground src={HERO_VIDEO} overlay={false} />
-        <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading italic mb-6 text-foreground">
-            <BlurText text="You can't see it. But it's everywhere." />
-          </h2>
-          <AnimatedSection delay={0.3}>
-            <p className="text-foreground/60 font-body font-light text-lg mb-10 leading-relaxed">
-              Air pollution surrounds us daily—entering our lungs, bloodstream, and cells without warning.
-            </p>
-            <Link
-              to="/solutions"
-              className="liquid-glass-strong rounded-full px-8 py-3 text-sm font-body font-medium text-foreground hover:bg-foreground/10 transition-all inline-block"
-            >
-              See Solutions
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
-
       {/* FEATURES CHESS */}
       <section className="py-32 px-6">
         <div className="max-w-6xl mx-auto space-y-32">
@@ -201,23 +180,36 @@ const Home = () => {
         </div>
       </section>
 
-      {/* FEATURES GRID */}
+      {/* WHY IT MATTERS — colorful */}
       <section className="py-32 px-6">
         <div className="max-w-6xl mx-auto">
           <AnimatedSection>
-            <h2 className="text-3xl sm:text-5xl font-heading italic text-center mb-16 text-foreground">
+            <p className="text-center text-xs font-body uppercase tracking-[0.3em] text-foreground/40 mb-3">The stakes</p>
+            <h2 className="text-3xl sm:text-5xl font-heading italic text-center mb-4 text-foreground">
               Why It Matters
             </h2>
+            <p className="text-center text-foreground/50 font-body font-light max-w-xl mx-auto mb-16">
+              Four reasons this isn't a tomorrow problem — it's a right-now one.
+            </p>
           </AnimatedSection>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {gridCards.map((c, i) => (
-              <AnimatedSection key={i} delay={i * 0.1}>
-                <div className="liquid-glass rounded-2xl p-8 h-full">
-                  <h4 className="text-xl font-heading italic mb-3 text-foreground">{c.title}</h4>
-                  <p className="text-foreground/60 font-body font-light leading-relaxed">{c.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+            {gridCards.map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <AnimatedSection key={i} delay={i * 0.1}>
+                  <div className={`group relative overflow-hidden rounded-3xl p-8 h-full liquid-glass ring-1 ${c.ring} transition-all hover:-translate-y-1 hover:shadow-2xl`}>
+                    <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full bg-gradient-to-br ${c.gradient} blur-3xl opacity-80 group-hover:opacity-100 transition-opacity`} />
+                    <div className="relative">
+                      <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${c.iconBg} mb-5`}>
+                        <Icon className={`w-6 h-6 ${c.iconColor}`} />
+                      </div>
+                      <h4 className="text-2xl font-heading italic mb-3 text-foreground">{c.title}</h4>
+                      <p className="text-foreground/70 font-body font-light leading-relaxed">{c.desc}</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
           </div>
         </div>
       </section>
