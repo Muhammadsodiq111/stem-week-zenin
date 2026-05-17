@@ -257,28 +257,49 @@ const Pollution = () => {
             </p>
           </AnimatedSection>
 
-          <div className="space-y-8">
-            {reactions.map((r, i) => (
-              <AnimatedSection key={i} delay={i * 0.12}>
-                <div className="liquid-glass rounded-2xl p-8 md:p-10">
-                  <h3 className="text-xl sm:text-2xl font-heading italic text-foreground mb-6">{r.title}</h3>
-                  <div className="space-y-3 mb-6">
-                    {r.lines.map((l, j) => (
-                      <div key={j} className="flex flex-wrap items-center gap-3">
-                        {l.label && (
-                          <span className="text-foreground/40 font-body text-xs uppercase tracking-wider w-36 shrink-0">{l.label}</span>
-                        )}
-                        <code className="font-body font-medium text-foreground text-base sm:text-lg tracking-wide">{l.eq}</code>
-                        {l.note && (
-                          <span className="text-foreground/40 font-body text-xs italic">({l.note})</span>
-                        )}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            {reactions.map((r, i) => {
+              const RIcon = r.Icon;
+              return (
+                <AnimatedSection key={i} delay={i * 0.12}>
+                  <div className={`group relative h-full rounded-3xl p-7 liquid-glass-strong ring-1 ${r.accent.ring} overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl`}>
+                    <div className={`absolute -top-20 -right-20 w-56 h-56 rounded-full bg-gradient-to-br ${r.accent.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
+                    <div className="relative">
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className={`relative inline-flex items-center justify-center w-12 h-12 rounded-2xl ${r.accent.bg} ring-1 ${r.accent.ring}`}>
+                          <RIcon className={`w-6 h-6 ${r.accent.text}`} />
+                          <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full ${r.accent.dot} text-[10px] font-body font-bold text-background flex items-center justify-center`}>
+                            {i + 1}
+                          </span>
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-heading italic text-foreground leading-tight">{r.title}</h3>
                       </div>
-                    ))}
+
+                      <div className="space-y-3 mb-5">
+                        {r.lines.map((l, j) => (
+                          <div key={j} className={`rounded-xl border ${r.accent.ring} ring-1 ${r.accent.bg} px-4 py-3`}>
+                            {l.label && (
+                              <div className="text-foreground/50 font-body text-[10px] uppercase tracking-widest mb-1">{l.label}</div>
+                            )}
+                            <div className="flex items-center justify-between gap-3">
+                              <code className="font-body font-medium text-foreground text-sm sm:text-base tracking-wide">{l.eq}</code>
+                              {l.note && (
+                                <span className={`shrink-0 text-[10px] font-body font-semibold tracking-wider uppercase rounded-full px-2 py-0.5 ${r.accent.bg} ${r.accent.text}`}>{l.note}</span>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex items-start gap-2 pt-4 border-t border-foreground/10">
+                        <ArrowRight className={`w-4 h-4 mt-0.5 shrink-0 ${r.accent.text}`} />
+                        <p className="text-foreground/60 font-body font-light text-sm leading-relaxed">{r.caption}</p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-foreground/50 font-body font-light text-sm leading-relaxed border-t border-foreground/10 pt-5">{r.caption}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              );
+            })}
           </div>
         </section>
 
