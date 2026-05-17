@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Flame, CloudRain, Sun, ArrowRight } from "lucide-react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
 import MoleculeDiagram from "../components/MoleculeDiagram";
