@@ -2,8 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Wind, HeartPulse, Brain, Dna, Flame, Shield, Activity, Droplets,
-  Zap, Battery, Skull, TrendingUp, ShieldAlert, Microscope,
-  ArrowRight,
+  Zap, TrendingUp, ShieldAlert,
 } from "lucide-react";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
