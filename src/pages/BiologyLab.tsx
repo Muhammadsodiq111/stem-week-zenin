@@ -45,16 +45,6 @@ const ORGAN_DATA: Record<string, {
       { Icon: Activity, title: "Cognitive Impairment", desc: "Children exposed to high pollution show reduced working memory, lower IQ scores, and slower processing speed than peers in clean air areas." },
     ],
   },
-  cells: {
-    Icon: Microscope, name: "Cells", accent: "emerald", damage: 90,
-    subtitle: "Oxidative stress at the molecular level",
-    effects: [
-      { Icon: Zap, title: "Reactive Oxygen Species", desc: "PM2.5 triggers ROS — unstable molecules that damage everything they touch: DNA, proteins, lipids, and mitochondria." },
-      { Icon: Dna, title: "DNA Damage", desc: "ROS cause single and double-strand DNA breaks. If repair mechanisms fail, mutations accumulate — increasing cancer risk across multiple organs." },
-      { Icon: Battery, title: "Mitochondrial Dysfunction", desc: "ROS attack mitochondria — the cell's power plants. Damaged mitochondria produce less energy and more ROS, creating a destructive feedback loop." },
-      { Icon: Skull, title: "Apoptosis & Necrosis", desc: "Overwhelming oxidative stress triggers programmed or uncontrolled cell death — both leading to tissue damage and organ failure." },
-    ],
-  },
 };
 
 const ACCENT = {
