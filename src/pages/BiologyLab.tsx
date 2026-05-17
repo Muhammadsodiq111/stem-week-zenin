@@ -2,8 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Wind, HeartPulse, Brain, Dna, Flame, Shield, Activity, Droplets,
-  Zap, Battery, Skull, TrendingUp, ShieldAlert, Microscope,
-  ArrowRight,
+  Zap, TrendingUp, ShieldAlert,
 } from "lucide-react";
 import AnimatedSection from "../components/AnimatedSection";
 import BlurText from "../components/BlurText";
@@ -43,16 +42,6 @@ const ORGAN_DATA: Record<string, {
       { Icon: Brain, title: "Neurodegeneration", desc: "Long-term exposure is linked to Alzheimer's and Parkinson's disease. Pollution-related brain inflammation mirrors neurodegenerative pathology." },
       { Icon: Zap, title: "Stroke Risk", desc: "Inflammation + blood thickening + hypertension = dramatically increased stroke risk. High pollution days see 10–30% more stroke admissions." },
       { Icon: Activity, title: "Cognitive Impairment", desc: "Children exposed to high pollution show reduced working memory, lower IQ scores, and slower processing speed than peers in clean air areas." },
-    ],
-  },
-  cells: {
-    Icon: Microscope, name: "Cells", accent: "emerald", damage: 90,
-    subtitle: "Oxidative stress at the molecular level",
-    effects: [
-      { Icon: Zap, title: "Reactive Oxygen Species", desc: "PM2.5 triggers ROS — unstable molecules that damage everything they touch: DNA, proteins, lipids, and mitochondria." },
-      { Icon: Dna, title: "DNA Damage", desc: "ROS cause single and double-strand DNA breaks. If repair mechanisms fail, mutations accumulate — increasing cancer risk across multiple organs." },
-      { Icon: Battery, title: "Mitochondrial Dysfunction", desc: "ROS attack mitochondria — the cell's power plants. Damaged mitochondria produce less energy and more ROS, creating a destructive feedback loop." },
-      { Icon: Skull, title: "Apoptosis & Necrosis", desc: "Overwhelming oxidative stress triggers programmed or uncontrolled cell death — both leading to tissue damage and organ failure." },
     ],
   },
 };
@@ -142,15 +131,6 @@ const BodyDiagram = ({ activeOrgan, onSelect }: { activeOrgan: string; onSelect:
         </path>
       </g>
 
-      {/* CELLS */}
-      <g onClick={() => onSelect("cells")} className="cursor-pointer" filter={a("cells") ? "url(#softGlow)" : undefined}>
-        <circle cx="100" cy="275" r="8" fill={ACCENT.emerald.svg} fillOpacity={a("cells") ? 0.85 : 0.4} stroke="#6ee7b7" strokeWidth="1" />
-        <circle cx="120" cy="282" r="9" fill={ACCENT.emerald.svg} fillOpacity={a("cells") ? 0.85 : 0.4} stroke="#6ee7b7" strokeWidth="1">
-          {a("cells") && <animate attributeName="r" values="9;11;9" dur="2s" repeatCount="indefinite" />}
-        </circle>
-        <circle cx="140" cy="275" r="7" fill={ACCENT.emerald.svg} fillOpacity={a("cells") ? 0.85 : 0.4} stroke="#6ee7b7" strokeWidth="1" />
-        <circle cx="120" cy="282" r="3" fill="#064e3b" opacity="0.7" />
-      </g>
     </svg>
   );
 };
@@ -312,35 +292,33 @@ const BiologyLab = () => {
             </p>
           </AnimatedSection>
 
-          {/* Connector line on lg+ */}
-          <div className="relative">
-            <div className="hidden lg:block absolute top-9 left-[6%] right-[6%] h-px bg-gradient-to-r from-sky-400/40 via-rose-400/40 to-violet-400/40" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-              {pathway.map((step, i) => {
-                const c = pathwayColors[step.color];
-                const SIcon = step.Icon;
-                return (
-                  <AnimatedSection key={i} delay={i * 0.1}>
-                    <div className={`group relative h-full rounded-2xl p-6 liquid-glass ring-1 ${c.ring} overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl`}>
-                      <div className={`absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
-                      <div className="relative">
-                        <div className={`relative inline-flex items-center justify-center w-14 h-14 rounded-2xl ${c.bg} ring-1 ${c.ring} mb-4`}>
-                          <SIcon className={`w-6 h-6 ${c.text}`} />
-                          <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full ${c.dot} text-[10px] font-body font-bold text-background flex items-center justify-center`}>
-                            {i + 1}
-                          </span>
-                        </div>
-                        <h4 className="text-foreground font-body font-semibold text-base mb-2">{step.title}</h4>
-                        <p className="text-foreground/60 font-body font-light text-sm leading-relaxed">{step.desc}</p>
+          {/* Pathway progress bar — placed ABOVE the cards */}
+          <div className="mb-8 h-1.5 rounded-full bg-foreground/5 overflow-hidden">
+            <div className="h-full w-full bg-gradient-to-r from-sky-400 via-amber-400 via-rose-400 via-fuchsia-400 to-violet-400 opacity-70" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {pathway.map((step, i) => {
+              const c = pathwayColors[step.color];
+              const SIcon = step.Icon;
+              return (
+                <AnimatedSection key={i} delay={i * 0.1}>
+                  <div className={`group relative h-full rounded-2xl p-6 liquid-glass ring-1 ${c.ring} overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl`}>
+                    <div className={`absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
+                    <div className="relative">
+                      <div className={`relative inline-flex items-center justify-center w-14 h-14 rounded-2xl ${c.bg} ring-1 ${c.ring} mb-4`}>
+                        <SIcon className={`w-6 h-6 ${c.text}`} />
+                        <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full ${c.dot} text-[10px] font-body font-bold text-background flex items-center justify-center`}>
+                          {i + 1}
+                        </span>
                       </div>
-                      {i < pathway.length - 1 && (
-                        <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-foreground/30" />
-                      )}
+                      <h4 className="text-foreground font-body font-semibold text-base mb-2">{step.title}</h4>
+                      <p className="text-foreground/60 font-body font-light text-sm leading-relaxed">{step.desc}</p>
                     </div>
-                  </AnimatedSection>
-                );
-              })}
-            </div>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
           </div>
         </section>
       </div>

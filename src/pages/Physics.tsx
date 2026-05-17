@@ -1,8 +1,23 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import {
+  Wind, Microscope, Building2, Shield, Atom, Plus, ArrowRight,
+  Factory, Mountain, Layers, Gauge, Sparkles, Thermometer,
+} from "lucide-react";
 import BlurText from "../components/BlurText";
 import AnimatedSection from "../components/AnimatedSection";
 import ParticleSettlingSim from "../components/ParticleSettlingSim";
+
+type Accent = "sky" | "rose" | "violet" | "amber" | "emerald" | "fuchsia";
+
+const ACCENT: Record<Accent, { bg: string; ring: string; text: string; glow: string; dot: string }> = {
+  sky:     { bg: "bg-sky-500/15",     ring: "ring-sky-400/40",     text: "text-sky-300",     glow: "from-sky-500/40",     dot: "bg-sky-400" },
+  rose:    { bg: "bg-rose-500/15",    ring: "ring-rose-400/40",    text: "text-rose-300",    glow: "from-rose-500/40",    dot: "bg-rose-400" },
+  violet:  { bg: "bg-violet-500/15",  ring: "ring-violet-400/40",  text: "text-violet-300",  glow: "from-violet-500/40",  dot: "bg-violet-400" },
+  amber:   { bg: "bg-amber-500/15",   ring: "ring-amber-400/40",   text: "text-amber-300",   glow: "from-amber-500/40",   dot: "bg-amber-400" },
+  emerald: { bg: "bg-emerald-500/15", ring: "ring-emerald-400/40", text: "text-emerald-300", glow: "from-emerald-500/40", dot: "bg-emerald-400" },
+  fuchsia: { bg: "bg-fuchsia-500/15", ring: "ring-fuchsia-400/40", text: "text-fuchsia-300", glow: "from-fuchsia-500/40", dot: "bg-fuchsia-400" },
+};
 
 const particles = [
   { label: "Dust / Pollen", size: "50–100 μm", fate: "Falls quickly due to gravity, caught by nose" },
@@ -12,134 +27,150 @@ const particles = [
 ];
 
 const lungDefenses = [
-  { name: "Inertial Impaction", desc: "Large particles moving fast hit the walls of your airways and stick to mucus. Physics saves you from big particles." },
-  { name: "Gravitational Settling", desc: "Medium particles slow down and sink onto airway surfaces before reaching deep lungs." },
-  { name: "Diffusion", desc: "Ultrafine particles are so small they don't follow straight paths. They diffuse randomly and sneak into the deepest lung tissue." },
+  { name: "Inertial Impaction", desc: "Large particles moving fast hit the walls of your airways and stick to mucus. Physics saves you from big particles.", Icon: Shield, accent: "sky" as Accent },
+  { name: "Gravitational Settling", desc: "Medium particles slow down and sink onto airway surfaces before reaching deep lungs.", Icon: Gauge, accent: "amber" as Accent },
+  { name: "Diffusion", desc: "Ultrafine particles are so small they don't follow straight paths — they diffuse randomly into the deepest lung tissue.", Icon: Sparkles, accent: "violet" as Accent },
 ];
 
 const bigIdeas = [
   {
     id: "wind",
-    icon: "💨",
+    Icon: Wind,
+    accent: "sky" as Accent,
     title: "Why Pollution Travels So Far",
     subtitle: "Fluid Dynamics & Wind",
     content: (
       <>
-        <p className="text-foreground/60 font-body font-light text-lg leading-relaxed mb-6">
-          Air behaves like a fluid — it flows, swirls, and carries things with it. Pollutants released from a factory chimney don't just fall straight down. They get carried by wind currents sometimes hundreds or thousands of kilometers away.
+        <p className="text-foreground/65 font-body font-light text-lg leading-relaxed mb-6">
+          Air behaves like a fluid — it flows, swirls, and carries things with it. Pollutants released from a factory chimney don't just fall straight down. Wind currents can carry them hundreds or thousands of kilometers away.
         </p>
-        <div className="space-y-4 mb-8">
+        <div className="grid sm:grid-cols-3 gap-4 mb-8">
           {[
-            { term: "Wind speed", detail: "Faster wind disperses pollution more widely but also spreads it further. A city 500km away can receive pollution from another country." },
-            { term: "Air pressure", detail: "High pressure systems push air downward, trapping pollution close to the ground like a lid on a pot." },
-            { term: "Temperature inversion", detail: "Normally warm air rises and takes pollution with it. But sometimes a layer of warm air sits above cold air, acting as a ceiling. Pollution gets trapped underneath and concentrates." },
-          ].map((c) => (
-            <div key={c.term} className="liquid-glass rounded-xl p-5">
-              <span className="text-foreground font-heading italic text-lg">{c.term}</span>
-              <span className="text-foreground/50 font-body font-light text-base ml-2">— {c.detail}</span>
-            </div>
-          ))}
+            { Icon: Wind, term: "Wind speed", detail: "Faster wind disperses pollution more widely but spreads it further. A city 500 km away can receive pollution from another country." },
+            { Icon: Layers, term: "Air pressure", detail: "High pressure pushes air downward, trapping pollution close to the ground like a lid on a pot." },
+            { Icon: Thermometer, term: "Inversion layer", detail: "A warm layer above cold air acts as a ceiling. Pollution gets trapped underneath and concentrates rapidly." },
+          ].map((c, idx) => {
+            const a = ACCENT[(["sky", "violet", "rose"] as Accent[])[idx]];
+            const CIcon = c.Icon;
+            return (
+              <div key={c.term} className={`liquid-glass rounded-2xl p-5 ring-1 ${a.ring}`}>
+                <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${a.bg} ring-1 ${a.ring} mb-3`}>
+                  <CIcon className={`w-4 h-4 ${a.text}`} />
+                </div>
+                <div className="text-foreground font-heading italic text-base mb-1">{c.term}</div>
+                <div className="text-foreground/55 font-body font-light text-sm leading-relaxed">{c.detail}</div>
+              </div>
+            );
+          })}
         </div>
-        <div className="liquid-glass-strong rounded-2xl p-8 border-l-2 border-foreground/20">
-          <p className="text-foreground font-heading italic text-xl mb-2">🏭 The Great Smog of London, 1952</p>
-          <p className="text-foreground/60 font-body font-light text-base leading-relaxed">
-            A temperature inversion trapped coal smoke over the city for 5 days. An estimated <span className="text-foreground font-medium">12,000 people died</span>.
-          </p>
+        <div className="liquid-glass-strong rounded-2xl p-6 ring-1 ring-rose-400/40 flex items-start gap-4">
+          <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-rose-500/15 ring-1 ring-rose-400/40">
+            <Factory className="w-5 h-5 text-rose-300" />
+          </div>
+          <div>
+            <p className="text-foreground font-heading italic text-lg mb-1">The Great Smog of London, 1952</p>
+            <p className="text-foreground/60 font-body font-light text-sm leading-relaxed">
+              A temperature inversion trapped coal smoke over the city for 5 days. An estimated <span className="text-foreground font-medium">12,000 people died</span>.
+            </p>
+          </div>
         </div>
       </>
     ),
   },
   {
     id: "size",
-    icon: "🔬",
+    Icon: Microscope,
+    accent: "violet" as Accent,
     title: "Why Size Is Everything",
     subtitle: "The Physics of Particles",
     content: (
       <>
-        <p className="text-foreground/60 font-body font-light text-lg leading-relaxed mb-8">
-          The reason PM2.5 is so dangerous is pure physics — it comes down to size, mass, and how particles behave in air.
+        <p className="text-foreground/65 font-body font-light text-lg leading-relaxed mb-6">
+          The reason PM2.5 is so dangerous is pure physics — size, mass, and how particles behave in air.
         </p>
-        <div className="overflow-x-auto mb-8">
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b border-foreground/10">
-                <th className="py-3 px-4 text-foreground/40 font-body font-medium text-sm uppercase tracking-wider">Particle</th>
-                <th className="py-3 px-4 text-foreground/40 font-body font-medium text-sm uppercase tracking-wider">Size</th>
-                <th className="py-3 px-4 text-foreground/40 font-body font-medium text-sm uppercase tracking-wider">What happens</th>
-              </tr>
-            </thead>
-            <tbody>
-              {particles.map((p) => (
-                <tr key={p.label} className="border-b border-foreground/5">
-                  <td className="py-4 px-4 text-foreground font-heading italic text-lg">{p.label}</td>
-                  <td className="py-4 px-4 text-foreground/80 font-body font-medium">{p.size}</td>
-                  <td className="py-4 px-4 text-foreground/50 font-body font-light">{p.fate}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {particles.map((p, i) => {
+            const a = ACCENT[(["amber", "rose", "fuchsia", "violet"] as Accent[])[i]];
+            return (
+              <div key={p.label} className={`liquid-glass rounded-2xl p-5 ring-1 ${a.ring}`}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-foreground font-heading italic text-lg">{p.label}</span>
+                  <span className={`text-[10px] font-body font-semibold tracking-wider uppercase rounded-full px-2 py-0.5 ${a.bg} ${a.text}`}>{p.size}</span>
+                </div>
+                <p className="text-foreground/55 font-body font-light text-sm leading-relaxed">{p.fate}</p>
+              </div>
+            );
+          })}
         </div>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="liquid-glass rounded-xl p-6">
-            <h4 className="text-foreground font-heading italic text-xl mb-2">Gravity</h4>
-            <p className="text-foreground/50 font-body font-light text-base leading-relaxed">
-              Pulls particles down — but the smaller and lighter a particle, the weaker gravity's pull relative to air resistance. PM2.5 is so light it essentially floats indefinitely.
+        <div className="grid sm:grid-cols-2 gap-4">
+          <div className="liquid-glass rounded-2xl p-5 ring-1 ring-amber-400/40">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-amber-500/15 ring-1 ring-amber-400/40 mb-3">
+              <Atom className="w-4 h-4 text-amber-300" />
+            </div>
+            <h4 className="text-foreground font-heading italic text-lg mb-1">Gravity</h4>
+            <p className="text-foreground/55 font-body font-light text-sm leading-relaxed">
+              The smaller and lighter a particle, the weaker gravity's pull relative to air resistance. PM2.5 is so light it essentially floats indefinitely.
             </p>
           </div>
-          <div className="liquid-glass rounded-xl p-6">
-            <h4 className="text-foreground font-heading italic text-xl mb-2">Brownian Motion</h4>
-            <p className="text-foreground/50 font-body font-light text-base leading-relaxed">
-              Ultrafine particles are so tiny they get bumped around randomly by air molecules themselves, making them impossible to settle. They zigzag constantly.
+          <div className="liquid-glass rounded-2xl p-5 ring-1 ring-emerald-400/40">
+            <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-500/15 ring-1 ring-emerald-400/40 mb-3">
+              <Sparkles className="w-4 h-4 text-emerald-300" />
+            </div>
+            <h4 className="text-foreground font-heading italic text-lg mb-1">Brownian Motion</h4>
+            <p className="text-foreground/55 font-body font-light text-sm leading-relaxed">
+              Ultrafine particles get bumped randomly by air molecules themselves, making them impossible to settle. They zigzag constantly.
             </p>
           </div>
-        </div>
-        <div className="liquid-glass-strong rounded-2xl p-6 text-center">
-          <p className="text-foreground font-heading italic text-xl">
-            🔬 PM2.5 is so small that <span className="text-foreground">30 of them lined up</span> side by side would equal the width of a single human hair.
-          </p>
         </div>
       </>
     ),
   },
   {
     id: "urban",
-    icon: "🌆",
+    Icon: Building2,
+    accent: "rose" as Accent,
     title: "The Urban Heat Trap",
     subtitle: "Cities Make It Worse",
     content: (
       <>
-        <p className="text-foreground/60 font-body font-light text-lg leading-relaxed mb-8">
-          Cities are physically different from the countryside — and that difference makes pollution more dangerous through two physics phenomena.
+        <p className="text-foreground/65 font-body font-light text-lg leading-relaxed mb-6">
+          Cities are physically different from the countryside — and that difference makes pollution more dangerous.
         </p>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="liquid-glass rounded-2xl p-8">
-            <h4 className="text-foreground font-heading italic text-2xl mb-4">Urban Heat Island</h4>
-            <ul className="space-y-3">
+        <div className="grid md:grid-cols-2 gap-5">
+          <div className="liquid-glass rounded-2xl p-6 ring-1 ring-amber-400/40">
+            <div className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-amber-500/15 ring-1 ring-amber-400/40 mb-4">
+              <Thermometer className="w-5 h-5 text-amber-300" />
+            </div>
+            <h4 className="text-foreground font-heading italic text-xl mb-3">Urban Heat Island</h4>
+            <ul className="space-y-2">
               {[
-                "Buildings, roads, and concrete absorb heat during the day and release it at night",
-                "Cities are on average 1–3°C warmer than surrounding rural areas",
-                "Extra heat accelerates chemical reactions — speeding up ozone and smog formation",
-                "Hot air holds more water vapor, which reacts with SO₂ and NO₂ to form acids faster",
+                "Concrete absorbs heat by day and releases it at night",
+                "Cities run 1–3°C warmer than rural areas",
+                "Heat accelerates ozone and smog formation",
+                "Hot air holds more moisture, speeding acid formation",
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="text-foreground/30 mt-1.5 text-xs">●</span>
-                  <span className="text-foreground/50 font-body font-light text-base leading-relaxed">{item}</span>
+                <li key={i} className="flex items-start gap-2">
+                  <span className="text-amber-300/70 mt-1.5 text-[10px]">●</span>
+                  <span className="text-foreground/55 font-body font-light text-sm leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="liquid-glass rounded-2xl p-8">
-            <h4 className="text-foreground font-heading italic text-2xl mb-4">Street Canyon Effect</h4>
-            <ul className="space-y-3">
+          <div className="liquid-glass rounded-2xl p-6 ring-1 ring-violet-400/40">
+            <div className="inline-flex items-center justify-center w-11 h-11 rounded-2xl bg-violet-500/15 ring-1 ring-violet-400/40 mb-4">
+              <Mountain className="w-5 h-5 text-violet-300" />
+            </div>
+            <h4 className="text-foreground font-heading italic text-xl mb-3">Street Canyon Effect</h4>
+            <ul className="space-y-2">
               {[
-                "Tall buildings on both sides of a street create a channel — like a canyon",
-                "Wind can't flow through properly, so exhaust gets trapped at street level",
-                "Pollution levels inside a street canyon can be 2–3× higher than on an open road",
-                "People walking and breathing are right in the middle of the highest concentrations",
+                "Tall buildings form a channel like a canyon",
+                "Wind can't flow through, exhaust gets trapped",
+                "Pollution can be 2–3× higher than an open road",
+                "Pedestrians breathe the highest concentrations",
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="text-foreground/30 mt-1.5 text-xs">●</span>
-                  <span className="text-foreground/50 font-body font-light text-base leading-relaxed">{item}</span>
+                <li key={i} className="flex items-start gap-2">
+                  <span className="text-violet-300/70 mt-1.5 text-[10px]">●</span>
+                  <span className="text-foreground/55 font-body font-light text-sm leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
@@ -151,137 +182,186 @@ const bigIdeas = [
 ];
 
 const Physics = () => {
-  const [activeIdea, setActiveIdea] = useState<string | null>(null);
+  const [activeIdea, setActiveIdea] = useState<string | null>("wind");
 
   return (
     <div className="pt-32 pb-20 px-6">
       <div className="max-w-5xl mx-auto">
         {/* Hero */}
         <AnimatedSection>
-          <span className="liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/60 inline-block mb-6">
-            Physics
+          <span className="liquid-glass rounded-full px-4 py-1.5 text-xs font-body font-medium tracking-widest uppercase text-foreground/60 inline-flex items-center gap-1.5 mb-6">
+            <Atom className="w-3.5 h-3.5" /> Physics
           </span>
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading italic mb-6 text-foreground">
             <BlurText text="How Particles Move Through Air" />
           </h1>
           <p className="text-foreground/60 font-body font-light text-lg max-w-2xl leading-relaxed mb-6">
-            You can't see it, you can't feel it — but physics decides where pollution goes, how far it travels, and whether it reaches your lungs. The air around you is never still.
-          </p>
-          <p className="text-foreground/40 font-body font-light text-base max-w-2xl leading-relaxed mb-20">
-            Physics here isn't about heavy equations. It's about movement, size, and invisible forces — all of which determine how dangerous the air you breathe actually is.
+            You can't see it, you can't feel it — but physics decides where pollution goes, how far it travels, and whether it reaches your lungs.
           </p>
         </AnimatedSection>
 
-        {/* Big Ideas */}
-        <AnimatedSection className="mb-24">
-          <h2 className="text-3xl sm:text-4xl font-heading italic text-foreground mb-12">Three Big Ideas</h2>
-          <div className="space-y-4">
+        {/* ─── SECTION 1: BIG IDEAS ─── */}
+        <section className="mt-32">
+          <AnimatedSection>
+            <span className="liquid-glass rounded-full px-3 py-1 text-[10px] font-body font-medium tracking-widest uppercase text-foreground/50 inline-block mb-5">
+              Section 01
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-heading italic mb-4 text-foreground">
+              Three Big Ideas
+            </h2>
+            <p className="text-foreground/50 font-body font-light text-lg mb-12 max-w-2xl">
+              Tap any idea to expand its full breakdown.
+            </p>
+          </AnimatedSection>
+
+          <div className="space-y-5">
             {bigIdeas.map((idea, i) => {
+              const a = ACCENT[idea.accent];
               const isActive = activeIdea === idea.id;
+              const IIcon = idea.Icon;
               return (
                 <AnimatedSection key={idea.id} delay={i * 0.08}>
-                  <button
-                    onClick={() => setActiveIdea(isActive ? null : idea.id)}
-                    className="w-full text-left liquid-glass rounded-2xl p-8 md:p-10 transition-all duration-300 hover:border-foreground/20"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <span className="text-3xl">{idea.icon}</span>
-                        <div>
-                          <h3 className="text-2xl sm:text-3xl font-heading italic text-foreground">{idea.title}</h3>
-                          <p className="text-foreground/40 font-body text-sm mt-1">{idea.subtitle}</p>
+                  <div className={`relative rounded-3xl liquid-glass ring-1 ${a.ring} overflow-hidden transition-all`}>
+                    <div className={`absolute -top-20 -right-20 w-72 h-72 rounded-full bg-gradient-to-br ${a.glow} to-transparent blur-3xl opacity-60`} />
+                    <button
+                      onClick={() => setActiveIdea(isActive ? null : idea.id)}
+                      className="relative w-full text-left p-7 md:p-9"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-4 min-w-0">
+                          <div className={`shrink-0 inline-flex items-center justify-center w-14 h-14 rounded-2xl ${a.bg} ring-1 ${a.ring}`}>
+                            <IIcon className={`w-6 h-6 ${a.text}`} />
+                          </div>
+                          <div className="min-w-0">
+                            <h3 className="text-xl sm:text-2xl font-heading italic text-foreground truncate">{idea.title}</h3>
+                            <p className={`font-body text-sm mt-1 ${a.text}`}>{idea.subtitle}</p>
+                          </div>
                         </div>
+                        <motion.span
+                          animate={{ rotate: isActive ? 45 : 0 }}
+                          className={`shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full ${a.bg} ${a.text}`}
+                        >
+                          <Plus className="w-4 h-4" />
+                        </motion.span>
                       </div>
-                      <motion.span
-                        animate={{ rotate: isActive ? 45 : 0 }}
-                        className="text-foreground/40 text-2xl font-light"
-                      >
-                        +
-                      </motion.span>
-                    </div>
-                  </button>
-                  <AnimatePresence>
-                    {isActive && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0, filter: "blur(8px)" }}
-                        animate={{ opacity: 1, height: "auto", filter: "blur(0px)" }}
-                        exit={{ opacity: 0, height: 0, filter: "blur(8px)" }}
-                        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-6 pb-2 px-2">{idea.content}</div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isActive && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+                          className="relative overflow-hidden"
+                        >
+                          <div className="px-7 md:px-9 pb-9 pt-2">{idea.content}</div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </AnimatedSection>
               );
             })}
           </div>
-        </AnimatedSection>
+        </section>
 
-        {/* Lung Defense */}
-        <AnimatedSection className="mb-24">
-          <h2 className="text-3xl sm:text-4xl font-heading italic text-foreground mb-4">
-            The Physics of Your Lungs
-          </h2>
-          <p className="text-foreground/50 font-body font-light text-lg max-w-2xl leading-relaxed mb-12">
-            Your body uses physics too — your lungs are an incredible filtration system, but they have a size limit they can't beat.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
-            {lungDefenses.map((d, i) => (
-              <AnimatedSection key={d.name} delay={i * 0.1}>
-                <div className="liquid-glass rounded-2xl p-8 h-full">
-                  <div className="text-foreground/20 font-heading italic text-5xl mb-4">{String(i + 1).padStart(2, "0")}</div>
-                  <h4 className="text-xl font-heading italic text-foreground mb-3">{d.name}</h4>
-                  <p className="text-foreground/50 font-body font-light text-base leading-relaxed">{d.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-          <div className="liquid-glass-strong rounded-2xl p-10 text-center">
-            <p className="text-foreground font-heading italic text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto">
-              ⚛️ Your lungs evolved to filter nature — dust, pollen, smoke from small fires. They were never designed for the physics of industrial-scale pollution.
+        {/* ─── SECTION 2: LUNG DEFENSE ─── */}
+        <section className="mt-40">
+          <AnimatedSection>
+            <span className="liquid-glass rounded-full px-3 py-1 text-[10px] font-body font-medium tracking-widest uppercase text-foreground/50 inline-block mb-5">
+              Section 02
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-heading italic mb-4 text-foreground">
+              The Physics of Your Lungs
+            </h2>
+            <p className="text-foreground/50 font-body font-light text-lg max-w-2xl leading-relaxed mb-12">
+              Your body uses physics too — your lungs are an incredible filtration system, but they have a size limit they can't beat.
             </p>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
 
-        {/* Stokes' Law */}
-        <AnimatedSection className="mb-24">
-          <h2 className="text-3xl sm:text-4xl font-heading italic text-foreground mb-4">
-            One Simple Principle
-          </h2>
-          <p className="text-foreground/50 font-body font-light text-lg max-w-2xl leading-relaxed mb-10">
-            Stokes' Law describes how fast a particle falls through air. Watch it happen — three particle sizes, three very different fates:
-          </p>
-          <div className="mb-8">
-            <ParticleSettlingSim />
+          <div className="grid md:grid-cols-3 gap-5 mb-10">
+            {lungDefenses.map((d, i) => {
+              const a = ACCENT[d.accent];
+              const DIcon = d.Icon;
+              return (
+                <AnimatedSection key={d.name} delay={i * 0.1}>
+                  <div className={`group relative h-full rounded-2xl p-7 liquid-glass ring-1 ${a.ring} overflow-hidden transition-all hover:-translate-y-1`}>
+                    <div className={`absolute -top-16 -right-16 w-52 h-52 rounded-full bg-gradient-to-br ${a.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
+                    <div className="relative">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${a.bg} ring-1 ${a.ring}`}>
+                          <DIcon className={`w-5 h-5 ${a.text}`} />
+                        </div>
+                        <span className={`font-heading italic text-3xl ${a.text} opacity-60`}>0{i + 1}</span>
+                      </div>
+                      <h4 className="text-xl font-heading italic text-foreground mb-3">{d.name}</h4>
+                      <p className="text-foreground/55 font-body font-light text-sm leading-relaxed">{d.desc}</p>
+                    </div>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
           </div>
-          <div className="liquid-glass rounded-2xl p-10 md:p-14">
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              {[
-                { label: "Smaller & lighter", result: "Falls slower" },
-                { label: "Falls slower", result: "Stays airborne longer" },
-                { label: "Stays airborne longer", result: "More likely you breathe it" },
-              ].map((step, i) => (
-                <div key={i} className="flex flex-col items-center">
-                  <div className="text-foreground font-heading italic text-xl mb-2">{step.label}</div>
-                  <span className="text-foreground/30 text-2xl mb-2">↓</span>
-                  <div className="text-foreground/50 font-body font-light text-base">{step.result}</div>
-                </div>
-              ))}
+        </section>
+
+        {/* ─── SECTION 3: STOKES' LAW ─── */}
+        <section className="mt-32">
+          <AnimatedSection>
+            <span className="liquid-glass rounded-full px-3 py-1 text-[10px] font-body font-medium tracking-widest uppercase text-foreground/50 inline-block mb-5">
+              Section 03
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-heading italic mb-4 text-foreground">
+              One Simple Principle
+            </h2>
+            <p className="text-foreground/50 font-body font-light text-lg max-w-2xl leading-relaxed mb-10">
+              Stokes' Law describes how fast a particle falls through air. Watch it happen — three particle sizes, three very different fates.
+            </p>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.15}>
+            <div className="mb-8">
+              <ParticleSettlingSim />
             </div>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
 
-        {/* Hook */}
-        <AnimatedSection>
-          <div className="liquid-glass-strong rounded-2xl p-12 md:p-16 text-center">
-            <span className="text-foreground/30 font-body text-sm tracking-widest uppercase block mb-6">The Takeaway</span>
-            <p className="text-foreground font-heading italic text-2xl md:text-3xl lg:text-4xl leading-snug max-w-4xl mx-auto">
-              "Physics doesn't care about borders, buildings, or bodies. It just follows its rules — and right now, those rules are working against us. The same forces that make a city feel alive are trapping poison in the air its people breathe."
-            </p>
-          </div>
-        </AnimatedSection>
+          <AnimatedSection delay={0.25}>
+            <div className="grid md:grid-cols-3 gap-4">
+              {[
+                { label: "Smaller & lighter", result: "Falls slower", accent: "sky" as Accent },
+                { label: "Falls slower", result: "Stays airborne longer", accent: "violet" as Accent },
+                { label: "Stays airborne longer", result: "More likely you breathe it", accent: "rose" as Accent },
+              ].map((step, i) => {
+                const a = ACCENT[step.accent];
+                return (
+                  <div key={i} className={`relative rounded-2xl p-6 liquid-glass ring-1 ${a.ring} overflow-hidden`}>
+                    <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full bg-gradient-to-br ${a.glow} to-transparent blur-3xl opacity-60`} />
+                    <div className="relative text-center">
+                      <div className="text-foreground font-heading italic text-lg mb-2">{step.label}</div>
+                      <ArrowRight className={`w-5 h-5 mx-auto my-2 ${a.text} rotate-90`} />
+                      <div className="text-foreground/60 font-body font-light text-sm">{step.result}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </AnimatedSection>
+        </section>
+
+        {/* ─── TAKEAWAY ─── */}
+        <section className="mt-32 mb-10">
+          <AnimatedSection>
+            <div className="relative liquid-glass-strong rounded-3xl p-10 md:p-16 text-center overflow-hidden">
+              <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-gradient-to-br from-sky-500/30 to-transparent blur-3xl" />
+              <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-gradient-to-br from-rose-500/30 to-transparent blur-3xl" />
+              <div className="relative">
+                <span className="text-foreground/40 font-body text-xs tracking-widest uppercase block mb-6">The Takeaway</span>
+                <p className="text-foreground font-heading italic text-2xl md:text-3xl lg:text-4xl leading-snug max-w-4xl mx-auto">
+                  "Physics doesn't care about borders, buildings, or bodies. It just follows its rules — and right now, those rules are working against us."
+                </p>
+              </div>
+            </div>
+          </AnimatedSection>
+        </section>
       </div>
     </div>
   );
