@@ -132,15 +132,9 @@ const BodyDiagram = ({ activeOrgan, onSelect }: { activeOrgan: string; onSelect:
         </path>
       </g>
 
-      {/* CELLS */}
-      <g onClick={() => onSelect("cells")} className="cursor-pointer" filter={a("cells") ? "url(#softGlow)" : undefined}>
-        <circle cx="100" cy="275" r="8" fill={ACCENT.emerald.svg} fillOpacity={a("cells") ? 0.85 : 0.4} stroke="#6ee7b7" strokeWidth="1" />
-        <circle cx="120" cy="282" r="9" fill={ACCENT.emerald.svg} fillOpacity={a("cells") ? 0.85 : 0.4} stroke="#6ee7b7" strokeWidth="1">
-          {a("cells") && <animate attributeName="r" values="9;11;9" dur="2s" repeatCount="indefinite" />}
-        </circle>
-        <circle cx="140" cy="275" r="7" fill={ACCENT.emerald.svg} fillOpacity={a("cells") ? 0.85 : 0.4} stroke="#6ee7b7" strokeWidth="1" />
-        <circle cx="120" cy="282" r="3" fill="#064e3b" opacity="0.7" />
-      </g>
+    </svg>
+  );
+};
     </svg>
   );
 };
