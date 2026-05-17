@@ -79,6 +79,8 @@ const gases = [
 const reactions = [
   {
     title: "Why CO forms instead of CO₂",
+    Icon: Flame,
+    accent: { bg: "bg-amber-500/15", ring: "ring-amber-400/40", text: "text-amber-300", glow: "from-amber-500/40", dot: "bg-amber-400" },
     lines: [
       { label: "Enough oxygen", eq: "C + O₂ → CO₂", note: "safe" },
       { label: "Not enough oxygen", eq: "2C + O₂ → 2CO", note: "deadly" },
@@ -87,6 +89,8 @@ const reactions = [
   },
   {
     title: "How SO₂ becomes acid rain",
+    Icon: CloudRain,
+    accent: { bg: "bg-sky-500/15", ring: "ring-sky-400/40", text: "text-sky-300", glow: "from-sky-500/40", dot: "bg-sky-400" },
     lines: [
       { eq: "SO₂ + H₂O → H₂SO₃", note: "sulfurous acid" },
       { eq: "2SO₂ + O₂ + 2H₂O → 2H₂SO₄", note: "sulfuric acid" },
@@ -95,6 +99,8 @@ const reactions = [
   },
   {
     title: "How smog is born — the ozone recipe",
+    Icon: Sun,
+    accent: { bg: "bg-rose-500/15", ring: "ring-rose-400/40", text: "text-rose-300", glow: "from-rose-500/40", dot: "bg-rose-400" },
     lines: [
       { eq: "NO₂ + Sunlight + Heat → O₃", note: "ground ozone" },
       { eq: "O₃ + more pollutants → Smog", note: "" },
