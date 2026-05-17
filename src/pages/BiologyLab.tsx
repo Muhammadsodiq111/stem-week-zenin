@@ -293,35 +293,33 @@ const BiologyLab = () => {
             </p>
           </AnimatedSection>
 
-          {/* Connector line on lg+ */}
-          <div className="relative">
-            <div className="hidden lg:block absolute top-9 left-[6%] right-[6%] h-px bg-gradient-to-r from-sky-400/40 via-rose-400/40 to-violet-400/40" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-              {pathway.map((step, i) => {
-                const c = pathwayColors[step.color];
-                const SIcon = step.Icon;
-                return (
-                  <AnimatedSection key={i} delay={i * 0.1}>
-                    <div className={`group relative h-full rounded-2xl p-6 liquid-glass ring-1 ${c.ring} overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl`}>
-                      <div className={`absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
-                      <div className="relative">
-                        <div className={`relative inline-flex items-center justify-center w-14 h-14 rounded-2xl ${c.bg} ring-1 ${c.ring} mb-4`}>
-                          <SIcon className={`w-6 h-6 ${c.text}`} />
-                          <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full ${c.dot} text-[10px] font-body font-bold text-background flex items-center justify-center`}>
-                            {i + 1}
-                          </span>
-                        </div>
-                        <h4 className="text-foreground font-body font-semibold text-base mb-2">{step.title}</h4>
-                        <p className="text-foreground/60 font-body font-light text-sm leading-relaxed">{step.desc}</p>
+          {/* Pathway progress bar — placed ABOVE the cards */}
+          <div className="mb-8 h-1.5 rounded-full bg-foreground/5 overflow-hidden">
+            <div className="h-full w-full bg-gradient-to-r from-sky-400 via-amber-400 via-rose-400 via-fuchsia-400 to-violet-400 opacity-70" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {pathway.map((step, i) => {
+              const c = pathwayColors[step.color];
+              const SIcon = step.Icon;
+              return (
+                <AnimatedSection key={i} delay={i * 0.1}>
+                  <div className={`group relative h-full rounded-2xl p-6 liquid-glass ring-1 ${c.ring} overflow-hidden transition-all hover:-translate-y-1 hover:shadow-2xl`}>
+                    <div className={`absolute -top-16 -right-16 w-44 h-44 rounded-full bg-gradient-to-br ${c.glow} to-transparent blur-3xl opacity-70 group-hover:opacity-100 transition-opacity`} />
+                    <div className="relative">
+                      <div className={`relative inline-flex items-center justify-center w-14 h-14 rounded-2xl ${c.bg} ring-1 ${c.ring} mb-4`}>
+                        <SIcon className={`w-6 h-6 ${c.text}`} />
+                        <span className={`absolute -top-1 -right-1 w-5 h-5 rounded-full ${c.dot} text-[10px] font-body font-bold text-background flex items-center justify-center`}>
+                          {i + 1}
+                        </span>
                       </div>
-                      {i < pathway.length - 1 && (
-                        <ArrowRight className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-5 h-5 text-foreground/30" />
-                      )}
+                      <h4 className="text-foreground font-body font-semibold text-base mb-2">{step.title}</h4>
+                      <p className="text-foreground/60 font-body font-light text-sm leading-relaxed">{step.desc}</p>
                     </div>
-                  </AnimatedSection>
-                );
-              })}
-            </div>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
           </div>
         </section>
       </div>
