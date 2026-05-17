@@ -135,9 +135,6 @@ const BodyDiagram = ({ activeOrgan, onSelect }: { activeOrgan: string; onSelect:
     </svg>
   );
 };
-    </svg>
-  );
-};
 
 /* ─── PAGE ─── */
 const BiologyLab = () => {
