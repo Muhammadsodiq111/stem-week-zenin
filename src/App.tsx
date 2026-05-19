@@ -38,6 +38,10 @@ const App = () => (
             <Route path="/biology-lab" element={<BiologyLab />} />
             <Route path="/data-lab" element={<DataLab />} />
             <Route path="/model-lab" element={<ModelLab />} />
+            <Route path="/igcse" element={<IGCSE />} />
+            <Route path="/igcse/biology" element={<IGCSEBiology />} />
+            <Route path="/igcse/chemistry" element={<IGCSEChemistry />} />
+            <Route path="/igcse/physics" element={<IGCSEPhysics />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
