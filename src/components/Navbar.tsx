@@ -10,6 +10,7 @@ const navLinks = [
   { to: "/physics", label: "Physics" },
   { to: "/data", label: "Data" },
   { to: "/solutions", label: "Solutions" },
+  { to: "/igcse", label: "IGCSE" },
 ];
 
 const labLinks = [
