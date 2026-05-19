@@ -13,6 +13,10 @@ import Solutions from "./pages/Solutions";
 import BiologyLab from "./pages/BiologyLab";
 import DataLab from "./pages/DataLab";
 import ModelLab from "./pages/ModelLab";
+import IGCSE from "./pages/IGCSE";
+import IGCSEBiology from "./pages/IGCSEBiology";
+import IGCSEChemistry from "./pages/IGCSEChemistry";
+import IGCSEPhysics from "./pages/IGCSEPhysics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
